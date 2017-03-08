@@ -1,0 +1,12 @@
+com\jhqc\pxsj\core\BaseDao$PartialUpdater.class
+com\jhqc\pxsj\core\Goods.class
+com\jhqc\pxsj\core\query\Query.class
+com\jhqc\pxsj\core\query\Predicate.class
+com\jhqc\pxsj\core\query\Join.class
+com\jhqc\pxsj\core\query\Root.class
+com\jhqc\pxsj\core\Goods_.class
+com\jhqc\pxsj\core\query\RootImpl.class
+com\jhqc\pxsj\core\App.class
+com\jhqc\pxsj\core\BaseDao.class
+com\jhqc\pxsj\core\query\CriteriaBuilder.class
+com\jhqc\pxsj\core\query\Attribute.class

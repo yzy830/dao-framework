@@ -1,0 +1,4 @@
+com\jhqc\pxsj\domain\annotation\Domain.class
+com\jhqc\pxsj\domain\annotation\Property.class
+com\jhqc\pxsj\domain\annotation\Id.class
+com\jhqc\pxsj\domain\annotation\Join.class
