@@ -49,56 +49,56 @@ public abstract class AbstractVariant<T, U> implements Variant<T, U> {
     }
 
     @Override
-    public Predicate like(U value) {
+    public Predicate like(T value) {
         checkSupport(Operation.LIKE);
         
         return Predicates.singleParam(this, value, Operation.LIKE);
     }
 
     @Override
-    public Predicate equal(U value) {
+    public Predicate equal(T value) {
         checkSupport(Operation.EQUAL);
         
         return Predicates.singleParam(this, value, Operation.EQUAL);
     }
 
     @Override
-    public Predicate notEqual(U value) {
+    public Predicate notEqual(T value) {
         checkSupport(Operation.NOT_EQUAL);
         
         return Predicates.singleParam(this, value, Operation.NOT_EQUAL);
     }
 
     @Override
-    public Predicate gt(U value) {
+    public Predicate gt(T value) {
         checkSupport(Operation.GT);
         
         return Predicates.singleParam(this, value, Operation.GT);
     }
 
     @Override
-    public Predicate ge(U value) {
+    public Predicate ge(T value) {
         checkSupport(Operation.GE);
         
         return Predicates.singleParam(this, value, Operation.GE);
     }
 
     @Override
-    public Predicate lt(U value) {
+    public Predicate lt(T value) {
         checkSupport(Operation.LT);
         
         return Predicates.singleParam(this, value, Operation.LT);
     }
 
     @Override
-    public Predicate le(U value) {
+    public Predicate le(T value) {
         checkSupport(Operation.LE);
         
         return Predicates.singleParam(this, value, Operation.LE);
     }
 
     @Override
-    public Predicate in(U[] values) {
+    public Predicate in(T[] values) {
         checkSupport(Operation.IN);
         
         return Predicates.multipleParam(this, Arrays.asList(values), Operation.IN);

@@ -18,12 +18,12 @@ class PredicateImpl implements Predicate {
         sql = new StringBuilder(TRUE_EXP);
     }
     
-    public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, U value, Operation operation) {
+    public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, T value, Operation operation) {
         sql = new StringBuilder().append("(").append(operation.formatPrepared(attribute.getExp(), 1)).append(")");
         params.add(value);
     }
     
-    public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, List<U> values, Operation operation) {
+    public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, List<T> values, Operation operation) {
         if(values == null) {
             values = new ArrayList<>();
         }

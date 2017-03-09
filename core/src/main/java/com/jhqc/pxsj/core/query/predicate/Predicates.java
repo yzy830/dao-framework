@@ -22,7 +22,7 @@ public final class Predicates {
      *          
      * @return 单一变量占位符的条件子句
      */
-    public static <T, U> Predicate singleParam(AbstractVariant<T, U> attr, U value, Operation op) {
+    public static <T, U> Predicate singleParam(AbstractVariant<T, U> attr, T value, Operation op) {
         return new PredicateImpl(attr, value, op);
     }
     
@@ -38,7 +38,7 @@ public final class Predicates {
      *          
      * @return 多变量占位符的条件子句
      */
-    public static <T, U> Predicate multipleParam(AbstractVariant<T, U> attr, List<U> values, Operation op) {
+    public static <T, U> Predicate multipleParam(AbstractVariant<T, U> attr, List<T> values, Operation op) {
         return new PredicateImpl(attr, values, op);
     }
     
@@ -84,7 +84,7 @@ public final class Predicates {
      *          
      * @return 多字符串参数的条件子句
      */
-    public static <T, U, X extends AbstractVariant<U, ?>> Predicate plainMultipleStrParams(AbstractVariant<T, U> attr, List<X> values, Operation op) {
+    public static <T, U> Predicate plainMultipleStrParams(AbstractVariant<T, U> attr, List<? extends AbstractVariant<U, ?>> values, Operation op) {
         return new PredicateImpl(attr, op, values);
     }
     

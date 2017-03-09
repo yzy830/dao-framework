@@ -13,21 +13,21 @@ import com.jhqc.pxsj.core.query.predicate.Predicate;
  *          操作数类型
  */
 public interface Variant<T, U> extends SelectingVariant<T> {
-    Predicate like(U value);
+    Predicate like(T value);
     
-    Predicate equal(U value);
+    Predicate equal(T value);
     
-    Predicate notEqual(U value);
+    Predicate notEqual(T value);
     
-    Predicate gt(U value);
+    Predicate gt(T value);
     
-    Predicate ge(U value);
+    Predicate ge(T value);
     
-    Predicate lt(U value);
+    Predicate lt(T value);
     
-    Predicate le(U value);
+    Predicate le(T value);
     
-    Predicate in(U[] values);
+    Predicate in(T[] values);
     
     Predicate like(Variant<U, ?> value);
     

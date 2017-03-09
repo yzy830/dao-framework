@@ -23,8 +23,8 @@ public class TestCase {
     public void testSimple() {
         Root<Goods> root = builder.root(Goods.class);
         
-        Predicate predicate = builder.predicate().and(root.get(Goods_.goodsId).equal(Integer.valueOf(1)))
-                                                 .and(root.get(Goods_.price).lt(Integer.valueOf(100)));
+        Predicate predicate = builder.predicate().and(root.get(Goods_.goodsId).equal(1L))
+                                                 .and(root.get(Goods_.price).lt(100));
         
         builder.createQuery(Integer.class).select(root.get(Goods_.goodsId), root.get(Goods_.name))
                                           .from(root)
