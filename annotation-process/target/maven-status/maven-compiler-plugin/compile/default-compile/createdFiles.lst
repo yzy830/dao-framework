@@ -3,9 +3,11 @@ com\jhqc\pxsj\annotation\process\meta\Id.class
 com\jhqc\pxsj\annotation\process\exceptions\LoadFreemarkerTemplateException.class
 com\jhqc\pxsj\annotation\process\Goods.class
 com\jhqc\pxsj\annotation\process\util\FreemarkerUtil.class
+com\jhqc\pxsj\annotation\process\DomainProcessor$MetaInfo.class
 com\jhqc\pxsj\annotation\process\exceptions\JoinAbsentPropertyException.class
 com\jhqc\pxsj\annotation\process\meta\Meta.class
 com\jhqc\pxsj\annotation\process\util\CompileReflectionUtil.class
+com\jhqc\pxsj\annotation\process\util\TypeMatchingUtil.class
 com\jhqc\pxsj\annotation\process\exceptions\GetBeanInfoExceptoin.class
 com\jhqc\pxsj\annotation\process\meta\Property.class
 com\jhqc\pxsj\annotation\process\meta\Join.class
