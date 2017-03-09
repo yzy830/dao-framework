@@ -1,14 +1,13 @@
 package com.jhqc.pxsj.core;
 
-import java.util.Date;
-
 import com.jhqc.pxsj.core.meta.MetaPool;
-import com.jhqc.pxsj.core.query.Query;
+import com.jhqc.pxsj.core.query.Select;
 import com.jhqc.pxsj.core.query.function.impls.Now;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
+import com.jhqc.pxsj.core.query.predicate.Predicates;
 import com.jhqc.pxsj.core.query.root.Root;
+import com.jhqc.pxsj.core.query.root.RootImpl;
 import com.jhqc.pxsj.core.query.variants.DateVariant;
-import com.jhqc.pxsj.core.query.variants.Variant;
 
 class CriteriaBuilderImpl implements CriteriaBuilder {
     private MetaPool metaPool;
@@ -19,24 +18,22 @@ class CriteriaBuilderImpl implements CriteriaBuilder {
 
     @Override
     public <T> Root<T> root(Class<T> domain) {
-        // TODO Auto-generated method stub
-        return null;
+        return new RootImpl<>(domain, metaPool);
     }
 
     @Override
     public Predicate predicate() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public <T> Query<T> createQuery(Class<T> result) {
-        // TODO Auto-generated method stub
-        return null;
+        return Predicates.alwaysTrue();
     }
 
     @Override
     public DateVariant now() {
         return Now.INSTANCE.apply();
+    }
+
+    @Override
+    public <T> Select<T> createQuery(Class<T> result) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

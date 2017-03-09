@@ -26,6 +26,14 @@ public abstract class AbstractVariant<T, U> implements Variant<T, U> {
     public String getExp() {
         return exp;
     }
+    
+    public SelectingVariant<T> as(String alias) {
+        return new SelectingVariantImpl<>(this, alias);
+    }
+    
+    public String getAlias() {
+        return "";
+    }
 
     @Override
     public Class<T> getJavaType() {
@@ -165,5 +173,10 @@ public abstract class AbstractVariant<T, U> implements Variant<T, U> {
         checkSupport(Operation.IS_NOT_NULL);
         
         return Predicates.noParam(this, Operation.IS_NOT_NULL);
+    }
+    
+    @Override
+    public String toString() {
+        return getExp();
     }
 }

@@ -12,7 +12,7 @@ import com.jhqc.pxsj.core.query.predicate.Predicate;
  * @param <U>
  *          操作数类型
  */
-public interface Variant<T, U> {
+public interface Variant<T, U> extends SelectingVariant<T> {
     Predicate like(U value);
     
     Predicate equal(U value);
@@ -49,10 +49,5 @@ public interface Variant<T, U> {
     
     Predicate notNull();
     
-    /**
-     * 变量的java类型
-     * 
-     * @return 变量的java类型
-     */
-    Class<T> getJavaType();
+    SelectingVariant<T> as(String alias);
 }

@@ -1,6 +1,7 @@
 package com.jhqc.pxsj.core.query.predicate;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.jhqc.pxsj.core.query.Operation;
@@ -75,5 +76,9 @@ class PredicateImpl implements Predicate {
     @Override
     public String toString() {
         return sql.toString();
+    }
+
+    public List<Object> getParams() {
+        return Collections.unmodifiableList(params);
     }
 }

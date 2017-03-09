@@ -87,4 +87,25 @@ public final class Predicates {
     public static <T, U, X extends AbstractVariant<U, ?>> Predicate plainMultipleStrParams(AbstractVariant<T, U> attr, List<X> values, Operation op) {
         return new PredicateImpl(attr, op, values);
     }
+    
+    /**
+     * 生成一个为真的Predicate
+     * 
+     * @return 为真的Predicate
+     */
+    public static Predicate alwaysTrue() {
+        return new PredicateImpl();
+    }
+    
+    public static List<Object> getParams(Predicate predicate) {
+        PredicateImpl p = (PredicateImpl)predicate;
+        
+        return p.getParams();
+    }
+    
+    public static String getCriteriaClause(Predicate predicate) {
+        PredicateImpl p = (PredicateImpl)predicate;
+        
+        return p.toString();
+    }
 }
