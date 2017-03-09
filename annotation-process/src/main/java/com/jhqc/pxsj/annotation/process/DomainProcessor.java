@@ -42,7 +42,7 @@ public class DomainProcessor extends AbstractProcessor {
                 root.put("package", packageElement.getQualifiedName());
                 root.put("className", simpleClassName);
                 root.put("domainFullQualifiedName", clazzElem.getQualifiedName());
-                root.put("names", CompileReflectionUtil.getPropertyNames(CompileReflectionUtil.getMembersExceptObject(processingEnv, clazzElem)));
+                root.put("descriptors", CompileReflectionUtil.getPropertyDescriptor(CompileReflectionUtil.getMembersExceptObject(processingEnv, clazzElem)));
                 
                 processingEnv.getTypeUtils().asElement(clazzElem.getSuperclass());
             

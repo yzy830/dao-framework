@@ -11,9 +11,9 @@ public class Goods_ {
 
     private static final Map<String, PropertyDescriptor> descriptors = ReflectionUtil.getPropertyDescriptorMap(domain); 
     
-    public static final Meta goodsId = Meta.newInstance(descriptors.get("goodsId"));
+    public static final Meta<java.lang.Long> goodsId = Meta.<java.lang.Long>newInstance(descriptors.get("goodsId"));
     
-    public static final Meta price = Meta.newInstance(descriptors.get("price"));
+    public static final Meta<java.lang.Integer> price = Meta.<java.lang.Integer>newInstance(descriptors.get("price"));
     
-    public static final Meta name = Meta.newInstance(descriptors.get("name"));
+    public static final Meta<java.lang.String> name = Meta.<java.lang.String>newInstance(descriptors.get("name"));
 }
