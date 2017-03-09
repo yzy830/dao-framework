@@ -1,5 +1,7 @@
 package com.jhqc.pxsj.core.meta;
 
-public class MetaPool {
+import com.jhqc.pxsj.annotation.process.dynamicmeta.DomainMeta;
 
+public interface MetaPool {
+    public DomainMeta getMeta(Class<?> domain);
 }

@@ -1,17 +1,31 @@
 package com.jhqc.pxsj.core.query;
 
+import com.jhqc.pxsj.annotation.process.dynamicmeta.DomainMeta;
+import com.jhqc.pxsj.annotation.process.dynamicmeta.JoinRelation;
 import com.jhqc.pxsj.annotation.process.meta.Meta;
+import com.jhqc.pxsj.core.meta.MetaPool;
 
 public class RootImpl<T> implements Root<T> {
-    private Class<T> domain;
+    private DomainMeta domainMeta;
     
-    public RootImpl(Class<T> domain) {
-        this.domain = domain;
+    private MetaPool pool;
+    
+    public RootImpl(Class<?> domain, MetaPool pool) {
+        this.domainMeta = pool.getMeta(domain);
+        this.pool = pool;
+        if(this.domainMeta == null) {
+            throw new IllegalArgumentException(String.format("class[%s] is not a domain model", domain.getName()));
+        }
     }
 
     @Override
     public <U> Join<T, U> join(Class<U> domain) {
-        // TODO Auto-generated method stub
+//        JoinRelation r = meta.getJoinRelations().get(domain);
+//        if(r != null) {
+//            
+//        } else {
+//            
+//        }
         return null;
     }
 
@@ -29,6 +43,12 @@ public class RootImpl<T> implements Root<T> {
 
     @Override
     public <X> Attribute<X> getAttribute(Meta meta) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getAlias() {
         // TODO Auto-generated method stub
         return null;
     }

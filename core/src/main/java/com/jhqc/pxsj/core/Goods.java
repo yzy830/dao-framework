@@ -10,7 +10,7 @@ public class Goods {
     private Long goodsId;
     
     private Integer price;
-    
+//    
     private String name;
     
     private Long shopId;

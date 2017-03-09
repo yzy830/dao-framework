@@ -22,4 +22,6 @@ public interface Attribute<T> {
     Predicate isNull();
     
     Predicate notNull();
+    
+    String getPath();
 }
