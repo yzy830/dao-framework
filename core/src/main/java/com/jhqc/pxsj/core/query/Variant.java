@@ -9,39 +9,41 @@ import com.jhqc.pxsj.core.query.predicate.Predicate;
  *
  * @param <T>
  *          变量结果的Java类型
+ * @param <U>
+ *          操作数类型
  */
-public interface Variant<T> {
-    Predicate like(T value);
+public interface Variant<T, U> {
+    Predicate like(U value);
     
-    Predicate equal(T value);
+    Predicate equal(U value);
     
-    Predicate notEqual(T value);
+    Predicate notEqual(U value);
     
-    Predicate gt(T value);
+    Predicate gt(U value);
     
-    Predicate ge(T value);
+    Predicate ge(U value);
     
-    Predicate lt(T value);
+    Predicate lt(U value);
     
-    Predicate le(T value);
+    Predicate le(U value);
     
-    Predicate in(T[] values);
+    Predicate in(U[] values);
     
-    Predicate like(Variant<T> value);
+    Predicate like(Variant<U, ?> value);
     
-    Predicate equal(Variant<T> value);
+    Predicate equal(Variant<U, ?> value);
     
-    Predicate notEqual(Variant<T> value);
+    Predicate notEqual(Variant<U, ?> value);
     
-    Predicate gt(Variant<T> value);
+    Predicate gt(Variant<U, ?> value);
     
-    Predicate ge(Variant<T> value);
+    Predicate ge(Variant<U, ?> value);
     
-    Predicate lt(Variant<T> value);
+    Predicate lt(Variant<U, ?> value);
     
-    Predicate le(Variant<T> value);
+    Predicate le(Variant<U, ?> value);
     
-    <U extends Variant<T>> Predicate in(List<U> values);
+    Predicate in(List<? extends Variant<U, ?>> values);
     
     Predicate isNull();
     

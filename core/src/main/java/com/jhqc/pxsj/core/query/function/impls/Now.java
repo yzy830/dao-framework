@@ -6,7 +6,7 @@ import com.jhqc.pxsj.core.query.Variant;
 import com.jhqc.pxsj.core.query.function.Simple;
 import com.jhqc.pxsj.core.query.variants.DateVariant;
 
-public class Now implements Simple<Date> {
+public class Now implements Simple<Date, Date> {
     
     @Override
     public Class<Date> getResultType() {
@@ -14,8 +14,7 @@ public class Now implements Simple<Date> {
     }
 
     @Override
-    public Variant<Date> apply() {
+    public Variant<Date, Date> apply() {
         return new DateVariant(getResultType(), "now()");
     }
-
 }

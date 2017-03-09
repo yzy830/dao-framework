@@ -42,11 +42,11 @@ public class RootImpl<T> implements Root<T> {
         return null;
     }
 
-    @Override
-    public <X> Attribute<X> getAttribute(Meta meta) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+//    @Override
+//    public <X, Y> Attribute<X, Y> getAttribute(Meta<X> meta) {
+//        // TODO Auto-generated method stub
+//        return null;
+//    }
 
     @Override
     public String getAlias() {

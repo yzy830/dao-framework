@@ -11,5 +11,5 @@ public interface CriteriaBuilder {
     
     <T> Query<T> createQuery(Class<T> result);
     
-    Variant<? extends Date> now();
+//    <T extends Date> Variant<Date, T> now();
 }

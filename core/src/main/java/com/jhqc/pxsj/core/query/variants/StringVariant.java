@@ -2,7 +2,7 @@ package com.jhqc.pxsj.core.query.variants;
 
 import com.jhqc.pxsj.core.query.Operation;
 
-public class StringVariant extends AbstractVariant<String> {
+public class StringVariant extends AbstractVariant<String, String> {
 
     public StringVariant(Class<String> javaType, String exp) {
         super(javaType, exp);

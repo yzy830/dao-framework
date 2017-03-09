@@ -34,9 +34,9 @@ public class CriteriaBuilderImpl implements CriteriaBuilder {
         return null;
     }
 
-    @Override
-    public Variant<? extends Date> now() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+//    @Override
+//    public Variant<? extends Date> now() {
+//        // TODO Auto-generated method stub
+//        return null;
+//    }
 }

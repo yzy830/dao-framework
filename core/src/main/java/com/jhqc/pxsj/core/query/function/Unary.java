@@ -7,5 +7,5 @@ public interface Unary<R, T> extends Function {
     
     Class<T> getOperatorType();
     
-    Variant<R> apply(Variant<T> operator);
+    <U, V> Variant<R, U> apply(Variant<T, V> operator);
 }

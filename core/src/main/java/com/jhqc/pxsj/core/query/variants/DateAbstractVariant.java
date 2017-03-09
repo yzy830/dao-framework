@@ -1,13 +1,15 @@
 package com.jhqc.pxsj.core.query.variants;
 
+import java.util.Date;
+
 import com.jhqc.pxsj.core.query.Operation;
 
-public class IntegerVariant<T extends Number> extends AbstractVariant<Integer, T> {
+public abstract class DateAbstractVariant<T extends Date, U extends Date> extends AbstractVariant<T, U> {
 
-    public IntegerVariant(Class<Integer> javaType, String exp) {
+    public DateAbstractVariant(Class<T> javaType, String exp) {
         super(javaType, exp);
     }
-
+    
     @Override
     protected boolean support(Operation operation) {
         switch(operation) {
@@ -18,7 +20,7 @@ public class IntegerVariant<T extends Number> extends AbstractVariant<Integer, T
         case GT:
             return true;
         case IN:
-            return true;
+            return false;
         case IS_NOT_NULL:
             return true;
         case IS_NULL:
@@ -35,5 +37,4 @@ public class IntegerVariant<T extends Number> extends AbstractVariant<Integer, T
             return false;
         }
     }
-
 }

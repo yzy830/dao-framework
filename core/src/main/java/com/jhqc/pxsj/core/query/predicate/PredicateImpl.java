@@ -17,12 +17,12 @@ class PredicateImpl implements Predicate {
         sql = new StringBuilder(TRUE_EXP);
     }
     
-    public <T> PredicateImpl(AbstractVariant<T> attribute, T value, Operation operation) {
+    public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, U value, Operation operation) {
         sql = new StringBuilder().append("(").append(operation.formatPrepared(attribute.getExp(), 1)).append(")");
         params.add(value);
     }
     
-    public <T> PredicateImpl(AbstractVariant<T> attribute, List<T> values, Operation operation) {
+    public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, List<U> values, Operation operation) {
         if(values == null) {
             values = new ArrayList<>();
         }
@@ -31,11 +31,11 @@ class PredicateImpl implements Predicate {
         params.addAll(values);
     }
     
-    public <T> PredicateImpl(AbstractVariant<T> attribute, Operation operation) {
+    public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, Operation operation) {
         sql = new StringBuilder().append("(").append(operation.formatPrepared(attribute.getExp(), 0)).append(")");
     }
     
-    public <T, U extends AbstractVariant<T>> PredicateImpl(AbstractVariant<T> attribute, Operation operation, U value) { 
+    public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, Operation operation, AbstractVariant<U, ?> value) { 
         if(value == null) {
             throw new NullPointerException();
         }
@@ -43,13 +43,13 @@ class PredicateImpl implements Predicate {
         sql = new StringBuilder().append("(").append(operation.formatPlain(attribute.getExp(), new String[] {value.getExp()})).append(")");
     }
     
-    public <T, U extends AbstractVariant<T>> PredicateImpl(AbstractVariant<T> attribute, Operation operation, List<U> values) {
+    public <T, U, X extends AbstractVariant<U, ?>> PredicateImpl(AbstractVariant<T, U> attribute, Operation operation, List<X> values) {
         if(values == null) {
             values = new ArrayList<>();
         }
         
         List<String> exps = new ArrayList<>();
-        for(U value : values) {
+        for(X value : values) {
             exps.add(value.getExp());
         }
         

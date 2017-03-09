@@ -8,7 +8,7 @@ import com.jhqc.pxsj.core.query.Variant;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
 import com.jhqc.pxsj.core.query.predicate.Predicates;
 
-public abstract class AbstractVariant<T> implements Variant<T> {
+public abstract class AbstractVariant<T, U> implements Variant<T, U> {
     
     private Class<T> javaType;
     
@@ -42,116 +42,116 @@ public abstract class AbstractVariant<T> implements Variant<T> {
     }
 
     @Override
-    public Predicate like(T value) {
+    public Predicate like(U value) {
         checkSupport(Operation.LIKE);
         
         return Predicates.singleParam(this, value, Operation.LIKE);
     }
 
     @Override
-    public Predicate equal(T value) {
+    public Predicate equal(U value) {
         checkSupport(Operation.EQUAL);
         
         return Predicates.singleParam(this, value, Operation.EQUAL);
     }
 
     @Override
-    public Predicate notEqual(T value) {
+    public Predicate notEqual(U value) {
         checkSupport(Operation.NOT_EQUAL);
         
         return Predicates.singleParam(this, value, Operation.NOT_EQUAL);
     }
 
     @Override
-    public Predicate gt(T value) {
+    public Predicate gt(U value) {
         checkSupport(Operation.GT);
         
         return Predicates.singleParam(this, value, Operation.GT);
     }
 
     @Override
-    public Predicate ge(T value) {
+    public Predicate ge(U value) {
         checkSupport(Operation.GE);
         
         return Predicates.singleParam(this, value, Operation.GE);
     }
 
     @Override
-    public Predicate lt(T value) {
+    public Predicate lt(U value) {
         checkSupport(Operation.LT);
         
         return Predicates.singleParam(this, value, Operation.LT);
     }
 
     @Override
-    public Predicate le(T value) {
+    public Predicate le(U value) {
         checkSupport(Operation.LE);
         
         return Predicates.singleParam(this, value, Operation.LE);
     }
 
     @Override
-    public Predicate in(T[] values) {
+    public Predicate in(U[] values) {
         checkSupport(Operation.IN);
         
         return Predicates.multipleParam(this, Arrays.asList(values), Operation.IN);
     }
 
     @Override
-    public Predicate like(Variant<T> value) {
+    public Predicate like(Variant<U, ?> value) {
         checkSupport(Operation.LIKE);
         
-        return Predicates.plainSigleStrParam(this, (AbstractVariant<T>)value, Operation.LIKE);
+        return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.LIKE);
     }
 
     @Override
-    public Predicate equal(Variant<T> value) {
+    public Predicate equal(Variant<U, ?> value) {
         checkSupport(Operation.EQUAL);
         
-        return Predicates.plainSigleStrParam(this, (AbstractVariant<T>)value, Operation.EQUAL);
+        return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.EQUAL);
     }
 
     @Override
-    public Predicate notEqual(Variant<T> value) {
+    public Predicate notEqual(Variant<U, ?> value) {
         checkSupport(Operation.NOT_EQUAL);
         
-        return Predicates.plainSigleStrParam(this, (AbstractVariant<T>)value, Operation.NOT_EQUAL);
+        return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.NOT_EQUAL);
     }
 
     @Override
-    public Predicate gt(Variant<T> value) {
+    public Predicate gt(Variant<U, ?> value) {
         checkSupport(Operation.GT);
         
-        return Predicates.plainSigleStrParam(this, (AbstractVariant<T>)value, Operation.GT);
+        return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.GT);
     }
 
     @Override
-    public Predicate ge(Variant<T> value) {
+    public Predicate ge(Variant<U, ?> value) {
         checkSupport(Operation.GE);
         
-        return Predicates.plainSigleStrParam(this, (AbstractVariant<T>)value, Operation.GE);
+        return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.GE);
     }
 
     @Override
-    public Predicate lt(Variant<T> value) {
+    public Predicate lt(Variant<U, ?> value) {
         checkSupport(Operation.LT);
         
-        return Predicates.plainSigleStrParam(this, (AbstractVariant<T>)value, Operation.LT);
+        return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.LT);
     }
 
     @Override
-    public Predicate le(Variant<T> value) {
+    public Predicate le(Variant<U, ?> value) {
         checkSupport(Operation.LE);
         
-        return Predicates.plainSigleStrParam(this, (AbstractVariant<T>)value, Operation.LE);
+        return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.LE);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public <U extends Variant<T>> Predicate in(List<U> values) {
+    public Predicate in(List<? extends Variant<U, ?>> values) {
         checkSupport(Operation.IN);
         
-        return Predicates.plainMultipleStrParams(this, (List<AbstractVariant<T>>)values, Operation.IN);
+        return Predicates.plainMultipleStrParams(this, (List<AbstractVariant<U, ?>>)values, Operation.IN);
     }
 
     @Override

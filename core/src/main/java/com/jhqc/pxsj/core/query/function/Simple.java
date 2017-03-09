@@ -2,8 +2,8 @@ package com.jhqc.pxsj.core.query.function;
 
 import com.jhqc.pxsj.core.query.Variant;
 
-public interface Simple<R> extends Function {
+public interface Simple<R, U> extends Function {
     Class<R> getResultType();
     
-    Variant<R> apply();
+    Variant<R, U> apply();
 }

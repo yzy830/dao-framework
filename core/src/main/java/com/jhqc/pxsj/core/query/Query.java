@@ -6,7 +6,7 @@ import com.jhqc.pxsj.core.query.predicate.Predicate;
 public interface Query<T> {
     Query<T> where(Predicate predicate);
     
-    Query<T> select(Attribute<?>...attributes);
+//    Query<T> select(Attribute<?>...attributes);
     
     Query<T> selectAuto();
     
