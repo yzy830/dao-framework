@@ -3,7 +3,7 @@ package com.jhqc.pxsj.core;
 import java.io.Serializable;
 import java.util.List;
 
-import com.jhqc.pxsj.core.query.Predicate;
+import com.jhqc.pxsj.core.query.predicate.Predicate;
 
 public interface BaseDao<E, ID extends Serializable> {
     E find(ID id);

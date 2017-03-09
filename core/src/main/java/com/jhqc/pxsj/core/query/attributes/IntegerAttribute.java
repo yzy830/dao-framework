@@ -1,14 +1,12 @@
 package com.jhqc.pxsj.core.query.attributes;
 
-import java.util.Date;
-
 import com.jhqc.pxsj.annotation.process.meta.Meta;
 import com.jhqc.pxsj.core.query.Root;
-import com.jhqc.pxsj.core.query.variants.DateVariant;
+import com.jhqc.pxsj.core.query.variants.IntegerVariant;
 
-public class DateAttribute extends DateVariant {
+public class IntegerAttribute extends IntegerVariant {
 
-    public DateAttribute(Root<?> root, Meta<Date> meta) {
+    public IntegerAttribute(Root<?> root, Meta<Integer> meta) {
         super(meta.getPropertyType(), AttributeUtil.genExp(root, meta));
     }
 }

@@ -4,6 +4,7 @@ import com.jhqc.pxsj.annotation.process.dynamicmeta.DomainMeta;
 import com.jhqc.pxsj.annotation.process.dynamicmeta.JoinRelation;
 import com.jhqc.pxsj.annotation.process.meta.Meta;
 import com.jhqc.pxsj.core.meta.MetaPool;
+import com.jhqc.pxsj.core.query.attributes.Attribute;
 
 public class RootImpl<T> implements Root<T> {
     private DomainMeta domainMeta;

@@ -294,23 +294,23 @@ public enum Operation {
     /**
      * 生成PreparedStatement格式条件语句，例如 name like ?
      * 
-     * @param path
-     *          查询目标变量
+     * @param exp
+     *          变量表达式
      * @param paramCount
      *          变量个数
      * @return 格式化条件语句
      */
-    public abstract String formatPrepared(String path, int paramCount);
+    public abstract String formatPrepared(String exp, int paramCount);
     
     /**
      * 生成Statement格式条件语句，例如 time < now()，name like '123'
      * 
-     * @param path
-     *          查询目标变量
+     * @param exp
+     *          变量表达式
      * @param vars
-     *          文本变量
+     *          变量表达式序列
      *          
      * @return 条件语句
      */
-    public abstract String formatPlain(String path, String...vars);
+    public abstract String formatPlain(String exp, String...vars);
 }

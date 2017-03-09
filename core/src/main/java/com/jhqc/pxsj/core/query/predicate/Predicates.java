@@ -1,6 +1,9 @@
-package com.jhqc.pxsj.core.query;
+package com.jhqc.pxsj.core.query.predicate;
 
 import java.util.List;
+
+import com.jhqc.pxsj.core.query.Operation;
+import com.jhqc.pxsj.core.query.variants.AbstractVariant;
 
 public final class Predicates {
     private Predicates() {
@@ -19,7 +22,7 @@ public final class Predicates {
      *          
      * @return 单一变量占位符的条件子句
      */
-    public static <T> Predicate singleParam(Attribute<T> attr, T value, Operation op) {
+    public static <T> Predicate singleParam(AbstractVariant<T> attr, T value, Operation op) {
         return new PredicateImpl(attr, value, op);
     }
     
@@ -35,7 +38,7 @@ public final class Predicates {
      *          
      * @return 多变量占位符的条件子句
      */
-    public static <T> Predicate multipleParam(Attribute<T> attr, List<T> values, Operation op) {
+    public static <T> Predicate multipleParam(AbstractVariant<T> attr, List<T> values, Operation op) {
         return new PredicateImpl(attr, values, op);
     }
     
@@ -49,7 +52,7 @@ public final class Predicates {
      *          
      * @return 无变量占位符的条件子句
      */
-    public static <T> Predicate noParam(Attribute<T> attr, Operation op) {
+    public static <T> Predicate noParam(AbstractVariant<T> attr, Operation op) {
         return new PredicateImpl(attr, op);
     }
     
@@ -65,7 +68,7 @@ public final class Predicates {
      * 
      * @return 单一字符串参数的条件子句
      */
-    public static <T> Predicate plainSigleStrParam(Attribute<T> attr, String value, Operation op) {
+    public static <T, U extends AbstractVariant<T>> Predicate plainSigleStrParam(AbstractVariant<T> attr, U value, Operation op) {
         return new PredicateImpl(attr, op, value);
     }
     
@@ -81,7 +84,7 @@ public final class Predicates {
      *          
      * @return 多字符串参数的条件子句
      */
-    public static <T> Predicate plainMultipleStrParams(Attribute<T> attr, List<String> values, Operation op) {
+    public static <T, U extends AbstractVariant<T>> Predicate plainMultipleStrParams(AbstractVariant<T> attr, List<U> values, Operation op) {
         return new PredicateImpl(attr, op, values);
     }
 }
