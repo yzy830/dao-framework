@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import com.jhqc.pxsj.annotation.process.exceptions.SetterTypeMismatchException;
 import com.jhqc.pxsj.annotation.process.util.NameUtil;
 
-public class Id<T> extends Meta<T> {
+public class Id<T, U> extends Meta<T, U> {
     private PropertyDescriptor descriptor;
 
     public Id(PropertyDescriptor descriptor, com.jhqc.pxsj.domain.annotation.Id id) {

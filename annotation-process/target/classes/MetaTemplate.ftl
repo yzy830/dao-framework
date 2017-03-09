@@ -10,8 +10,8 @@ public class ${className} {
     public static final Class<?> domain = ${domainFullQualifiedName}.class;
 
     private static final Map<String, PropertyDescriptor> descriptors = ReflectionUtil.getPropertyDescriptorMap(domain); 
-    <#list descriptors as descriptor>
+    <#list infos as info>
     
-    public static final Meta<${descriptor.typeName}> ${descriptor.name} = Meta.<${descriptor.typeName}>newInstance(descriptors.get("${descriptor.name}"));
+    public static final Meta<${info.typeName}, ${info.matchTypeName}> ${info.name} = Meta.<${info.typeName}, ${info.matchTypeName}>newInstance(descriptors.get("${info.name}"));
     </#list>
 }

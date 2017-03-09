@@ -4,7 +4,7 @@ import java.beans.PropertyDescriptor;
 
 import com.jhqc.pxsj.annotation.process.util.NameUtil;
 
-public class Join<T> extends Meta<T> {
+public class Join<T, U> extends Meta<T, U> {
     private Class<?> joinDomain;
     
     private String joinColumn;

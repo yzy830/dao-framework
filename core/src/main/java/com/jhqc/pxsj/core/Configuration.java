@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.jhqc.pxsj.core.meta.MetaPool;
 import com.jhqc.pxsj.core.meta.MetaPoolImpl;
-import com.jhqc.pxsj.core.query.CriteriaBuilder;
 
 public class Configuration {
     private List<Class<?>> domainModels = new ArrayList<>();

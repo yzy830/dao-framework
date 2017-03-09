@@ -1,7 +1,10 @@
 package com.jhqc.pxsj.annotation.process;
 
 import java.io.BufferedWriter;
+import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,7 +20,9 @@ import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 
 import com.jhqc.pxsj.annotation.process.util.CompileReflectionUtil;
+import com.jhqc.pxsj.annotation.process.util.CompileReflectionUtil.StaticPropertyDescriptor;
 import com.jhqc.pxsj.annotation.process.util.FreemarkerUtil;
+import com.jhqc.pxsj.annotation.process.util.TypeMatchingUtil;
 import com.jhqc.pxsj.domain.annotation.Domain;
 
 import freemarker.template.Template;
@@ -42,16 +47,18 @@ public class DomainProcessor extends AbstractProcessor {
                 root.put("package", packageElement.getQualifiedName());
                 root.put("className", simpleClassName);
                 root.put("domainFullQualifiedName", clazzElem.getQualifiedName());
-                root.put("descriptors", CompileReflectionUtil.getPropertyDescriptor(CompileReflectionUtil.getMembersExceptObject(processingEnv, clazzElem)));
+                
+                List<MetaInfo> infos = new ArrayList<>();
+                for(StaticPropertyDescriptor descriptor : CompileReflectionUtil.getPropertyDescriptor(CompileReflectionUtil.getMembersExceptObject(processingEnv, clazzElem))) {
+                    infos.add(new MetaInfo(descriptor));
+                }   
+                root.put("infos", infos);
                 
                 processingEnv.getTypeUtils().asElement(clazzElem.getSuperclass());
-            
-                try {
-                    JavaFileObject javaFile = processingEnv.getFiler().createSourceFile(fullQualifiedName);
-                    BufferedWriter bw = new BufferedWriter(javaFile.openWriter());
-                    metaTemplate.process(root, bw);
-                    bw.close();
-                    
+                JavaFileObject javaFile = processingEnv.getFiler().createSourceFile(fullQualifiedName);
+                try(Writer writer = javaFile.openWriter();
+                    BufferedWriter bw = new BufferedWriter(writer)) {                    
+                    metaTemplate.process(root, bw);                    
                     processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "生成" + fullQualifiedName);
                 } catch(Exception e) {
                     processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, e.getMessage(), elem);
@@ -62,5 +69,31 @@ public class DomainProcessor extends AbstractProcessor {
         } 
         
         return true;
+    }
+    
+    public static class MetaInfo {
+        private String name;
+        
+        private String typeName;
+        
+        private String matchTypeName;
+        
+        public MetaInfo(StaticPropertyDescriptor descriptor) {
+            this.name = descriptor.getName();
+            this.typeName = descriptor.getTypeName();
+            this.matchTypeName = TypeMatchingUtil.getTypeMatch(this.typeName);
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getTypeName() {
+            return typeName;
+        }
+
+        public String getMatchTypeName() {
+            return matchTypeName;
+        }
     }
 }
