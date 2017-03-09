@@ -1,4 +1,4 @@
-package com.jhqc.pxsj.core.query;
+package com.jhqc.pxsj.core.query.variants;
 
 import java.util.List;
 

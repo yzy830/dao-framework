@@ -2,11 +2,12 @@ package com.jhqc.pxsj.core.query;
 
 import com.jhqc.pxsj.core.query.attributes.Attribute;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
+import com.jhqc.pxsj.core.query.root.Root;
 
 public interface Query<T> {
     Query<T> where(Predicate predicate);
     
-//    Query<T> select(Attribute<?>...attributes);
+    Query<T> select(Attribute<?,?>...attributes);
     
     Query<T> selectAuto();
     

@@ -5,9 +5,11 @@ import java.util.Date;
 import com.jhqc.pxsj.core.meta.MetaPool;
 import com.jhqc.pxsj.core.query.CriteriaBuilder;
 import com.jhqc.pxsj.core.query.Query;
-import com.jhqc.pxsj.core.query.Root;
-import com.jhqc.pxsj.core.query.Variant;
+import com.jhqc.pxsj.core.query.function.impls.Now;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
+import com.jhqc.pxsj.core.query.root.Root;
+import com.jhqc.pxsj.core.query.variants.DateVariant;
+import com.jhqc.pxsj.core.query.variants.Variant;
 
 public class CriteriaBuilderImpl implements CriteriaBuilder {
     private MetaPool metaPool;
@@ -34,9 +36,8 @@ public class CriteriaBuilderImpl implements CriteriaBuilder {
         return null;
     }
 
-//    @Override
-//    public Variant<? extends Date> now() {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
+    @Override
+    public DateVariant now() {
+        return Now.INSTANCE.apply();
+    }
 }

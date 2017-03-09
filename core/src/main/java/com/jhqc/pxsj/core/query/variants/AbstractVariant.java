@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.jhqc.pxsj.core.query.Operation;
-import com.jhqc.pxsj.core.query.Variant;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
 import com.jhqc.pxsj.core.query.predicate.Predicates;
 
