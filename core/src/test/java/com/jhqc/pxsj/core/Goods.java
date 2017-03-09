@@ -10,7 +10,7 @@ public class Goods {
     private Long goodsId;
     
     private Integer price;
-//    
+    
     private String name;
     
     private Long shopId;
@@ -24,7 +24,7 @@ public class Goods {
         this.goodsId = goodsId;
     }
 
-    @Property("xx_price")
+    @Property("goods_price")
     public Integer getPrice() {
         return price;
     }
@@ -33,6 +33,7 @@ public class Goods {
         this.price = price;
     }
 
+    @Property("goods_name")
     public String getName() {
         return name;
     }
@@ -41,7 +42,7 @@ public class Goods {
         this.name = name;
     }
 
-    @Join(domain = Shop.class, refProperty = "shop_id")
+    @Join(domain = Shop.class, refProperty = "shopId")
     public Long getShopId() {
         return shopId;
     }

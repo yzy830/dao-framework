@@ -8,7 +8,7 @@ public interface Root<T> {
     
     <U> Join<T, U> leftJoin(Class<U> domain);
     
-    <X, U> Attribute<X, U> getAttribute(Meta<X, U> meta);
+    <X, U> Attribute<X, U> get(Meta<X, U> meta);
     
     String getAlias();
     

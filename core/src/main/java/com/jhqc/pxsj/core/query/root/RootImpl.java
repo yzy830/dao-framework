@@ -81,7 +81,7 @@ public class RootImpl<T> implements Root<T> {
     }
     
     @Override
-    public <X, U> Attribute<X, U> getAttribute(Meta<X, U> meta) {
+    public <X, U> Attribute<X, U> get(Meta<X, U> meta) {
         return Attributes.generateAttribute(this, meta);
     }
 

@@ -2,6 +2,7 @@ package com.jhqc.pxsj.core;
 
 import com.jhqc.pxsj.domain.annotation.Domain;
 import com.jhqc.pxsj.domain.annotation.Id;
+import com.jhqc.pxsj.domain.annotation.Property;
 
 @Domain(table = "t_d_shop")
 public class Shop {
@@ -18,6 +19,7 @@ public class Shop {
         this.id = id;
     }
 
+    @Property("shop_name")
     public String getName() {
         return name;
     }
