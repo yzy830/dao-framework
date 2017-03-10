@@ -6,4 +6,6 @@ public interface Query<T> {
     String create();
     
     List<Object> getParams();
+    
+    Class<T> getResultType();
 }

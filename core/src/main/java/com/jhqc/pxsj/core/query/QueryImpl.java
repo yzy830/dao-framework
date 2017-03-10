@@ -34,4 +34,9 @@ public class QueryImpl<T> implements Query<T> {
     public List<Object> getParams() {
         return Predicates.getParams(where.getPredicate());
     }
+
+    @Override
+    public Class<T> getResultType() {
+        return where.getResultType();
+    }
 }
