@@ -66,6 +66,19 @@ public class RootImpl<T> implements Root<T> {
         
         return join;
     }
+    
+    @SuppressWarnings("unchecked")
+    @Override
+    public <U> Join<T, U> join(Class<U> domain, String alias) {
+        if(joinMap.containsKey(domain)) {
+            return (Join<T, U>)joinMap.get(domain);
+        }
+        
+        Join<T, U> join = new JoinImpl<>(domain, pool, alias, JoinType.INNER, this);
+        joinMap.put(domain, join);
+        
+        return join;
+    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -75,6 +88,19 @@ public class RootImpl<T> implements Root<T> {
         }
         
         Join<T, U> join = new JoinImpl<>(domain, pool, JoinType.LEFT, this);   
+        joinMap.put(domain, join);
+        
+        return join;
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Override
+    public <U> Join<T, U> leftJoin(Class<U> domain, String alias) {
+        if(joinMap.containsKey(domain)) {
+            return (Join<T, U>)joinMap.get(domain);
+        }
+        
+        Join<T, U> join = new JoinImpl<>(domain, pool, alias, JoinType.LEFT, this);   
         joinMap.put(domain, join);
         
         return join;

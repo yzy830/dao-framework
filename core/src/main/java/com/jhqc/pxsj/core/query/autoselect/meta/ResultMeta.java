@@ -27,7 +27,7 @@ public class ResultMeta {
             throw new IllegalArgumentException();
         }
         
-        if(Util.isValidResultClass(result)) {
+        if(!Util.isValidResultClass(result)) {
             throw new InvalidResultClassException(result);
         }
         

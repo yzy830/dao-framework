@@ -36,4 +36,9 @@ class CriteriaBuilderImpl implements CriteriaBuilder {
     public <T> Select<T> createQuery(Class<T> result) {
         return Queries.createSelect(result, metaPool);
     }
+
+    @Override
+    public <T> Root<T> root(Class<T> domain, String alias) {
+        return new RootImpl<>(domain, metaPool, alias);
+    }
 }

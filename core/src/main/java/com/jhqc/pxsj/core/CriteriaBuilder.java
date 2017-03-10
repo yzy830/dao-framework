@@ -8,6 +8,8 @@ import com.jhqc.pxsj.core.query.variants.DateVariant;
 public interface CriteriaBuilder {
     <T> Root<T> root(Class<T> domain);
     
+    <T> Root<T> root(Class<T> domain, String alias);
+    
     Predicate predicate();
     
     <T> Select<T> createQuery(Class<T> result);

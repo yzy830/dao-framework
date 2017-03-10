@@ -7,8 +7,10 @@ import com.jhqc.pxsj.core.query.Query;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
 import com.jhqc.pxsj.core.query.root.Join;
 import com.jhqc.pxsj.core.query.root.Root;
+import com.jhqc.pxsj.domain.annotation.Source;
+import com.jhqc.pxsj.domain.annotation.SourceProperty;
 
-public class TestCase {
+public class BaseCase {
     private CriteriaBuilder builder;
     
     @Before
@@ -48,6 +50,53 @@ public class TestCase {
                                                                  .from(goods)
                                                                  .where(predicate);
         
+        System.out.println(query.create());
+        System.out.println(query.getParams());
+    }
+    
+    @Source(domain = Goods.class, alias = "goods")
+    public static class Result {
+        private Integer goodsId;
+        
+        private String goodsName;
+        
+        private Integer shopId;
+        
+        private String shopName;
+
+        public Integer getGoodsId() {
+            return goodsId;
+        }
+        
+        @SourceProperty("name")
+        public String getGoodsName() {
+            return goodsName;
+        }
+
+        @Source(domain = Shop.class, alias = "shop")
+        public Integer getShopId() {
+            return shopId;
+        }
+
+        @Source(domain = Shop.class, alias = "shop")
+        @SourceProperty("name")
+        public String getShopName() {
+            return shopName;
+        }
+    }
+    
+    @Test
+    public void testAuto() {
+        Root<Goods> goods = builder.root(Goods.class, "goods");
+        Join<Goods, Shop> shop = goods.leftJoin(Shop.class, "shop"); 
+        
+        Predicate predicate = builder.predicate().and(shop.get(Shop_.shopId).eq(3))
+                                                 .and(goods.get(Goods_.price).lt(1300));
+        
+        Query<Result> query = builder.createQuery(Result.class).autoSelect()
+                                                                .from(goods)
+                                                                .where(predicate);
+
         System.out.println(query.create());
         System.out.println(query.getParams());
     }
