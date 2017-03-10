@@ -6,7 +6,7 @@ import com.jhqc.pxsj.annotation.process.meta.Meta;
 import com.jhqc.pxsj.core.query.root.Root;
 
 @SuppressWarnings("rawtypes")
-enum Generator implements AttributeGenerator {
+enum AttributeRegister implements AttributeGenerator {
     BIG_DECIMAL(BigDecimal.class) {
 
         @SuppressWarnings("unchecked")
@@ -85,7 +85,7 @@ enum Generator implements AttributeGenerator {
     
     private Class<?> clazz;
     
-    private Generator(Class<?> clazz) {
+    private AttributeRegister(Class<?> clazz) {
         this.clazz = clazz;
     }
     
@@ -94,7 +94,7 @@ enum Generator implements AttributeGenerator {
     }
     
     public static AttributeGenerator findMatch(Class<?> target) {
-        for(Generator g : Generator.values()) {
+        for(AttributeRegister g : AttributeRegister.values()) {
             if(g.match(target)) {
                 return g;
             }

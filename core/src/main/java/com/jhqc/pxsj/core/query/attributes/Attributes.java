@@ -11,7 +11,7 @@ public final class Attributes {
     
     @SuppressWarnings("unchecked")
     public static <T,U> Attribute<T,U> generateAttribute(Root<?> root, Meta<T, U> meta) {        
-        AttributeGenerator generator = Generator.findMatch(meta.getPropertyType());
+        AttributeGenerator generator = AttributeRegister.findMatch(meta.getPropertyType());
         
         if(generator == null) {
             throw new UnsupportedTypeException(meta.getPropertyType());
