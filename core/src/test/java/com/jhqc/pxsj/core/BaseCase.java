@@ -102,9 +102,9 @@ public class BaseCase {
     }
     
     @Test
-    public void testTrick() {
+    public void testTrick() {        
         Query<Result> query = builder.trick(Result.class).root(Goods.class, "goods").lt(Goods_.price, 2000)
-                                                         .leftJoin(Shop.class, "shop").eq(Shop_.shopId, 333)
+                                                         .leftJoin(Shop.class, "shop").eq(Shop_.shopId, 333).eq(Shop_.status, ShopStatus.NORMAL)
                                                          .done()
                                                          .autoSelect();
         

@@ -9,6 +9,8 @@ public class Shop {
     private Integer shopId;
     
     private String name;
+    
+    private ShopStatus status;
 
     @Id
     public Integer getShopId() {
@@ -26,5 +28,13 @@ public class Shop {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ShopStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ShopStatus status) {
+        this.status = status;
     }
 }
