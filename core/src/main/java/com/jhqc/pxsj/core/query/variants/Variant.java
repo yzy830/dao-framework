@@ -15,9 +15,9 @@ import com.jhqc.pxsj.core.query.predicate.Predicate;
 public interface Variant<T, U> extends SelectingVariant<T> {
     Predicate like(T value);
     
-    Predicate equal(T value);
+    Predicate eq(T value);
     
-    Predicate notEqual(T value);
+    Predicate notEq(T value);
     
     Predicate gt(T value);
     
@@ -31,9 +31,9 @@ public interface Variant<T, U> extends SelectingVariant<T> {
     
     Predicate like(Variant<U, ?> value);
     
-    Predicate equal(Variant<U, ?> value);
+    Predicate eq(Variant<U, ?> value);
     
-    Predicate notEqual(Variant<U, ?> value);
+    Predicate notEq(Variant<U, ?> value);
     
     Predicate gt(Variant<U, ?> value);
     

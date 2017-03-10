@@ -24,7 +24,7 @@ public class TestCase {
     public void testSimple() {
         Root<Goods> goods = builder.root(Goods.class);
         
-        Predicate predicate = builder.predicate().and(goods.get(Goods_.goodsId).equal(1L))
+        Predicate predicate = builder.predicate().and(goods.get(Goods_.goodsId).eq(1L))
                                                  .and(goods.get(Goods_.price).lt(100));
         
         builder.createQuery(Integer.class).select(goods.get(Goods_.goodsId), goods.get(Goods_.name))
@@ -37,7 +37,7 @@ public class TestCase {
         Root<Goods> goods = builder.root(Goods.class);
         Join<Goods, Shop> shop = goods.join(Shop.class); 
         
-        Predicate predicate = builder.predicate().and(shop.get(Shop_.id).equal(2L))
+        Predicate predicate = builder.predicate().and(shop.get(Shop_.id).eq(2L))
                                                  .and(goods.get(Goods_.price).lt(100));
         
         builder.createQuery(Integer.class).select(goods.get(Goods_.goodsId), goods.get(Goods_.name))

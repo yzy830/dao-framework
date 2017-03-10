@@ -56,14 +56,14 @@ public abstract class AbstractVariant<T, U> implements Variant<T, U> {
     }
 
     @Override
-    public Predicate equal(T value) {
+    public Predicate eq(T value) {
         checkSupport(Operation.EQUAL);
         
         return Predicates.singleParam(this, value, Operation.EQUAL);
     }
 
     @Override
-    public Predicate notEqual(T value) {
+    public Predicate notEq(T value) {
         checkSupport(Operation.NOT_EQUAL);
         
         return Predicates.singleParam(this, value, Operation.NOT_EQUAL);
@@ -112,14 +112,14 @@ public abstract class AbstractVariant<T, U> implements Variant<T, U> {
     }
 
     @Override
-    public Predicate equal(Variant<U, ?> value) {
+    public Predicate eq(Variant<U, ?> value) {
         checkSupport(Operation.EQUAL);
         
         return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.EQUAL);
     }
 
     @Override
-    public Predicate notEqual(Variant<U, ?> value) {
+    public Predicate notEq(Variant<U, ?> value) {
         checkSupport(Operation.NOT_EQUAL);
         
         return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.NOT_EQUAL);
