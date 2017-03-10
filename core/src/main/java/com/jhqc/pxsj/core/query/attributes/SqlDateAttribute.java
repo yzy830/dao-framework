@@ -6,9 +6,9 @@ import com.jhqc.pxsj.annotation.process.meta.Meta;
 import com.jhqc.pxsj.core.query.root.Root;
 import com.jhqc.pxsj.core.query.variants.SqlDateVariant;
 
-public class DateAttribute extends SqlDateVariant implements Attribute<Date, java.util.Date> {
+public class SqlDateAttribute extends SqlDateVariant implements Attribute<Date, java.util.Date> {
 
-    public DateAttribute(Root<?> root, Meta<Date, java.util.Date> meta) {
+    public SqlDateAttribute(Root<?> root, Meta<Date, java.util.Date> meta) {
         super(meta.getPropertyType(), AttributeUtil.genExp(root, meta));
     }
 }
