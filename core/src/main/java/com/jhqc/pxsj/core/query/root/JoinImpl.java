@@ -33,8 +33,8 @@ public class JoinImpl<T, U> extends RootImpl<U> implements Join<T, U> {
     
     private String joinColumn;
     
-    public JoinImpl(Class<?> domain, MetaPool pool, int aliasId, JoinType joinType, Root<T> root) {
-        this(domain, pool, generateAlias(domain, pool, aliasId), joinType, root);
+    public JoinImpl(Class<?> domain, MetaPool pool, JoinType joinType, Root<T> root) {
+        this(domain, pool, generateAlias(domain, pool, ((RootImpl<T>)root).getGenerator()), joinType, root);
     }
 
     public JoinImpl(Class<?> domain, MetaPool pool, String alias, JoinType joinType, Root<T> root) {
@@ -59,13 +59,13 @@ public class JoinImpl<T, U> extends RootImpl<U> implements Join<T, U> {
         this.root = root;
     }
 
-    private static String generateAlias(Class<?> domain, MetaPool pool, int aliasId) {
+    private static String generateAlias(Class<?> domain, MetaPool pool, AliasGenerator generator) {
         DomainMeta domainMeta = pool.getMeta(domain);
         if(domainMeta == null) {
             throw new IllegalArgumentException(String.format("class[%s] is not a domain model", domain.getName()));
         }
         
-        return AUTO_ALIAS_PREFIX + PropertyNameUtil.underscoreName(domainMeta.getEntityName()) + aliasId;
+        return generator.generate(AUTO_ALIAS_PREFIX + PropertyNameUtil.underscoreName(domainMeta.getEntityName()));
     }
     
     @Override
@@ -77,5 +77,9 @@ public class JoinImpl<T, U> extends RootImpl<U> implements Join<T, U> {
                                   .append(" = ")
                                   .append(this.getAlias()).append(joinColumn)
                                   .toString();
+    }
+    
+    protected AliasGenerator getGenerator() {
+        return ((RootImpl<T>)root).getGenerator();
     }
 }

@@ -24,7 +24,7 @@ public class RootImpl<T> implements Root<T> {
     
     protected Map<Class<?>, Join<T,?>> joinMap = new HashMap<>();
     
-    private Map<Class<?>, Integer> aliasIdMap = new HashMap<>();
+    private AliasGenerator aliasGenerator;
     
     public RootImpl(Class<?> domain, MetaPool pool) {
         this(domain, pool, generateAlias(domain, pool));
@@ -61,7 +61,7 @@ public class RootImpl<T> implements Root<T> {
             return (Join<T, U>)joinMap.get(domain);
         }
         
-        Join<T, U> join = new JoinImpl<>(domain, pool, generateAliasId(domain), JoinType.INNER, this);
+        Join<T, U> join = new JoinImpl<>(domain, pool, JoinType.INNER, this);
         joinMap.put(domain, join);
         
         return join;
@@ -74,7 +74,7 @@ public class RootImpl<T> implements Root<T> {
             return (Join<T, U>)joinMap.get(domain);
         }
         
-        Join<T, U> join = new JoinImpl<>(domain, pool, generateAliasId(domain), JoinType.LEFT, this);   
+        Join<T, U> join = new JoinImpl<>(domain, pool, JoinType.LEFT, this);   
         joinMap.put(domain, join);
         
         return join;
@@ -88,18 +88,6 @@ public class RootImpl<T> implements Root<T> {
     @Override
     public String getAlias() {
         return alias;
-    }
-    
-    protected int generateAliasId(Class<?> domain) {
-        if(aliasIdMap.containsKey(domain)) {
-            int id = aliasIdMap.get(domain) + 1;
-            aliasIdMap.put(domain, id);
-            return id;
-        } else {
-            int id = 1;
-            aliasIdMap.put(domain, id);
-            return id;
-        }
     }
     
     @Override
@@ -127,5 +115,13 @@ public class RootImpl<T> implements Root<T> {
                 doConstruct(join, builder);
             }
         }
+    }
+    
+    protected AliasGenerator getGenerator() {
+        if(aliasGenerator == null) {
+            aliasGenerator = new AliasGeneratorImpl();
+        }
+        
+        return aliasGenerator;
     }
 }
