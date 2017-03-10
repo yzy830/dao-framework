@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.jhqc.pxsj.core.query.predicate.Predicates;
 import com.jhqc.pxsj.core.query.root.RootUtil;
-import com.jhqc.pxsj.core.query.variants.VariantUtil;
 
 public class QueryImpl<T> implements Query<T> {
     private WhereImpl<T> where;
@@ -15,10 +14,10 @@ public class QueryImpl<T> implements Query<T> {
         this.where = where;
         
         FromImpl<T> from = where.getFrom();
-        SelectImpl<T> selet = from.getSelect();
+        SelectImpl<T> select = from.getSelect();
         
-        sql = new StringBuilder().append("select ")                                                     
-                                 .append(VariantUtil.constructSelectClause(selet.getVariants()))        
+        sql = new StringBuilder().append("select ")
+                                 .append(select.constructSelectClause())                                                          
                                  .append(" from ")                                                      
                                  .append(RootUtil.constructFromClause(from.getRoot()))                  
                                  .append(" where ")                                                     

@@ -5,7 +5,7 @@ import com.jhqc.pxsj.core.query.variants.SelectingVariant;
 public interface Select<T> {
     From<T> select(SelectingVariant<?>...variant);
     
-    From<T> selectAuto();
+    From<T> autoSelect();
     
     Class<T> getResultType();
 }

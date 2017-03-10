@@ -1,6 +1,7 @@
 package com.jhqc.pxsj.core;
 
 import com.jhqc.pxsj.core.meta.MetaPool;
+import com.jhqc.pxsj.core.query.Queries;
 import com.jhqc.pxsj.core.query.Select;
 import com.jhqc.pxsj.core.query.function.impls.Now;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
@@ -33,7 +34,6 @@ class CriteriaBuilderImpl implements CriteriaBuilder {
 
     @Override
     public <T> Select<T> createQuery(Class<T> result) {
-        // TODO Auto-generated method stub
-        return null;
+        return Queries.createSelect(result, metaPool);
     }
 }
