@@ -10,12 +10,18 @@ import com.jhqc.pxsj.core.query.variants.AbstractVariant;
 class PredicateImpl implements Predicate {
     private static final String TRUE_EXP = "1 = 1";
     
+    private static final String FALSE_EXP = "1 = 0";
+    
     private StringBuilder sql;
     
     private List<Object> params = new ArrayList<>();
     
-    public PredicateImpl() {
-        sql = new StringBuilder(TRUE_EXP);
+    public PredicateImpl(boolean isTrue) {
+        if(isTrue) {
+            sql = new StringBuilder(TRUE_EXP);
+        } else {
+            sql = new StringBuilder(FALSE_EXP);
+        }
     }
     
     public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, T value, Operation operation) {

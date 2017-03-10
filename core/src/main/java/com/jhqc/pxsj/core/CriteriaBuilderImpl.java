@@ -9,6 +9,9 @@ import com.jhqc.pxsj.core.query.predicate.Predicates;
 import com.jhqc.pxsj.core.query.root.Root;
 import com.jhqc.pxsj.core.query.root.RootImpl;
 import com.jhqc.pxsj.core.query.variants.DateVariant;
+import com.jhqc.pxsj.core.trick.Trick;
+import com.jhqc.pxsj.core.trick.Trick.TrickType;
+import com.jhqc.pxsj.core.trick.Tricks;
 
 class CriteriaBuilderImpl implements CriteriaBuilder {
     private MetaPool metaPool;
@@ -23,8 +26,13 @@ class CriteriaBuilderImpl implements CriteriaBuilder {
     }
 
     @Override
-    public Predicate predicate() {
+    public Predicate alwaysTrue() {
         return Predicates.alwaysTrue();
+    }
+    
+    @Override
+    public Predicate alwaysFalse() {
+        return Predicates.alwaysFlase();
     }
 
     @Override
@@ -40,5 +48,15 @@ class CriteriaBuilderImpl implements CriteriaBuilder {
     @Override
     public <T> Root<T> root(Class<T> domain, String alias) {
         return new RootImpl<>(domain, metaPool, alias);
+    }
+
+    @Override
+    public <T> Trick<T> trick(Class<T> result) {
+        return Tricks.trick(this, TrickType.AND, result);
+    }
+
+    @Override
+    public <T> Trick<T> trick(Class<T> result, TrickType type) {
+        return Tricks.trick(this, type, result);
     }
 }

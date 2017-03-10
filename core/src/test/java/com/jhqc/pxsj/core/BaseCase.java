@@ -27,7 +27,7 @@ public class BaseCase {
     public void testSimple() {
         Root<Goods> goods = builder.root(Goods.class);
         
-        Predicate predicate = builder.predicate().and(goods.get(Goods_.goodsId).eq(1))
+        Predicate predicate = builder.alwaysTrue().and(goods.get(Goods_.goodsId).eq(1))
                                                  .and(goods.get(Goods_.price).lt(100));
         
         Query<Integer> query = builder.createQuery(Integer.class).select(goods.get(Goods_.goodsId), goods.get(Goods_.name))
@@ -43,7 +43,7 @@ public class BaseCase {
         Root<Goods> goods = builder.root(Goods.class);
         Join<Goods, Shop> shop = goods.join(Shop.class); 
         
-        Predicate predicate = builder.predicate().and(shop.get(Shop_.shopId).eq(2))
+        Predicate predicate = builder.alwaysTrue().and(shop.get(Shop_.shopId).eq(2))
                                                  .and(goods.get(Goods_.price).lt(100));
         
         Query<Integer> query = builder.createQuery(Integer.class).select(goods.get(Goods_.goodsId), goods.get(Goods_.name))
@@ -90,13 +90,24 @@ public class BaseCase {
         Root<Goods> goods = builder.root(Goods.class, "goods");
         Join<Goods, Shop> shop = goods.leftJoin(Shop.class, "shop"); 
         
-        Predicate predicate = builder.predicate().and(shop.get(Shop_.shopId).eq(3))
+        Predicate predicate = builder.alwaysTrue().and(shop.get(Shop_.shopId).eq(3))
                                                  .and(goods.get(Goods_.price).lt(1300));
         
         Query<Result> query = builder.createQuery(Result.class).autoSelect()
                                                                 .from(goods)
                                                                 .where(predicate);
 
+        System.out.println(query.create());
+        System.out.println(query.getParams());
+    }
+    
+    @Test
+    public void testTrick() {
+        Query<Result> query = builder.trick(Result.class).root(Goods.class, "goods").lt(Goods_.price, 2000)
+                                                         .leftJoin(Shop.class, "shop").eq(Shop_.shopId, 333)
+                                                         .done()
+                                                         .autoSelect();
+        
         System.out.println(query.create());
         System.out.println(query.getParams());
     }

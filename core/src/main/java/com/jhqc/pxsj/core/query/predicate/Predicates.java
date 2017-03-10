@@ -94,7 +94,16 @@ public final class Predicates {
      * @return 为真的Predicate
      */
     public static Predicate alwaysTrue() {
-        return new PredicateImpl();
+        return new PredicateImpl(true);
+    }
+    
+    /**
+     * 生成一个为假的Predicate
+     * 
+     * @return 为假的Predicate
+     */
+    public static Predicate alwaysFlase() {
+        return new PredicateImpl(false);
     }
     
     public static List<Object> getParams(Predicate predicate) {
