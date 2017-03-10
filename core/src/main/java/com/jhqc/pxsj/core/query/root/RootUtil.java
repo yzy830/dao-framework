@@ -16,4 +16,12 @@ public final class RootUtil {
         
         return r.construct();
     }
+    
+    public static boolean isRoot(Class<?> clazz) {
+        return isJoin(clazz);
+    }
+    
+    public static boolean isJoin(Class<?> clazz) {
+        return Join.class.isAssignableFrom(clazz);
+    }
 }

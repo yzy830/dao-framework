@@ -7,6 +7,7 @@ import java.util.List;
 import com.jhqc.pxsj.core.meta.MetaPool;
 import com.jhqc.pxsj.core.query.autoselect.AutoSelector;
 import com.jhqc.pxsj.core.query.autoselect.Selectors;
+import com.jhqc.pxsj.core.query.root.Root;
 import com.jhqc.pxsj.core.query.variants.SelectingVariant;
 import com.jhqc.pxsj.core.query.variants.VariantUtil;
 
@@ -52,9 +53,9 @@ class SelectImpl<T> implements Select<T> {
         return resultType;
     }
     
-    public String constructSelectClause() {
+    public String constructSelectClause(Root<?> root) {
         if(selector != null) {
-            return selector.select();
+            return selector.select(root);
         } else {
             return VariantUtil.constructSelectClause(variants);
         }
@@ -62,6 +63,10 @@ class SelectImpl<T> implements Select<T> {
     
     @Override
     public String toString() {
-        return constructSelectClause();
+        if(selector != null) {
+            return selector.getTemplate().getTemplate();
+        } else {
+            return VariantUtil.constructSelectClause(variants);
+        }
     }
 }

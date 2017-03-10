@@ -17,7 +17,7 @@ public class QueryImpl<T> implements Query<T> {
         SelectImpl<T> select = from.getSelect();
         
         sql = new StringBuilder().append("select ")
-                                 .append(select.constructSelectClause())                                                          
+                                 .append(select.constructSelectClause(from.getRoot()))                                                          
                                  .append(" from ")                                                      
                                  .append(RootUtil.constructFromClause(from.getRoot()))                  
                                  .append(" where ")                                                     
