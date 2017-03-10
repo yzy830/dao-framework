@@ -3,6 +3,7 @@ package com.jhqc.pxsj.core;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.jhqc.pxsj.core.query.Query;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
 import com.jhqc.pxsj.core.query.root.Join;
 import com.jhqc.pxsj.core.query.root.Root;
@@ -24,12 +25,15 @@ public class TestCase {
     public void testSimple() {
         Root<Goods> goods = builder.root(Goods.class);
         
-        Predicate predicate = builder.predicate().and(goods.get(Goods_.goodsId).eq(1L))
+        Predicate predicate = builder.predicate().and(goods.get(Goods_.goodsId).eq(1))
                                                  .and(goods.get(Goods_.price).lt(100));
         
-        builder.createQuery(Integer.class).select(goods.get(Goods_.goodsId), goods.get(Goods_.name))
-                                          .from(goods)
-                                          .where(predicate);
+        Query<Integer> query = builder.createQuery(Integer.class).select(goods.get(Goods_.goodsId), goods.get(Goods_.name))
+                                                                 .from(goods)
+                                                                 .where(predicate);
+        
+        System.out.println(query.create());
+        System.out.println(query.getParams());
     }
     
     @Test
@@ -37,11 +41,14 @@ public class TestCase {
         Root<Goods> goods = builder.root(Goods.class);
         Join<Goods, Shop> shop = goods.join(Shop.class); 
         
-        Predicate predicate = builder.predicate().and(shop.get(Shop_.id).eq(2L))
+        Predicate predicate = builder.predicate().and(shop.get(Shop_.shopId).eq(2))
                                                  .and(goods.get(Goods_.price).lt(100));
         
-        builder.createQuery(Integer.class).select(goods.get(Goods_.goodsId), goods.get(Goods_.name))
-                                          .from(goods)
-                                          .where(predicate);
+        Query<Integer> query = builder.createQuery(Integer.class).select(goods.get(Goods_.goodsId), goods.get(Goods_.name))
+                                                                 .from(goods)
+                                                                 .where(predicate);
+        
+        System.out.println(query.create());
+        System.out.println(query.getParams());
     }
 }

@@ -5,6 +5,6 @@ public class AliasGeneratorImpl implements AliasGenerator {
 
     @Override
     public String generate(String prefix) {
-        return prefix + i++;
+        return prefix + "_" + i++;
     }
 }

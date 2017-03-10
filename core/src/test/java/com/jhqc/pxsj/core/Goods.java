@@ -7,7 +7,7 @@ import com.jhqc.pxsj.domain.annotation.Property;
 
 @Domain(table = "t_d_goods")
 public class Goods {
-    private Long goodsId;
+    private Integer goodsId;
     
     private Integer price;
     
@@ -16,11 +16,11 @@ public class Goods {
     private Long shopId;
 
     @Id
-    public Long getGoodsId() {
+    public Integer getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(Long goodsId) {
+    public void setGoodsId(Integer goodsId) {
         this.goodsId = goodsId;
     }
 

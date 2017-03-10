@@ -7,7 +7,7 @@ import com.jhqc.pxsj.core.exception.LackJoinException;
 import com.jhqc.pxsj.core.meta.MetaPool;
 
 public class JoinImpl<T, U> extends RootImpl<U> implements Join<T, U> {
-    private static final String AUTO_ALIAS_PREFIX = "g_j_";
+    private static final String AUTO_ALIAS_PREFIX = "_j_";
     
     public enum JoinType {
         LEFT("left join"),
@@ -73,9 +73,9 @@ public class JoinImpl<T, U> extends RootImpl<U> implements Join<T, U> {
         return new StringBuilder().append(joinType.getJoin()).append(" ")
                                   .append(domainMeta.getTable()).append(" ")
                                   .append(getAlias()).append(" on ")
-                                  .append(root.getAlias()).append(rootColumn)
+                                  .append(root.getAlias()).append(".").append(rootColumn)
                                   .append(" = ")
-                                  .append(this.getAlias()).append(joinColumn)
+                                  .append(this.getAlias()).append(".").append(joinColumn)
                                   .toString();
     }
     

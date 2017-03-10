@@ -1,6 +1,7 @@
 package com.jhqc.pxsj.core.query.variants;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class VariantUtil {
     private VariantUtil() {
@@ -8,12 +9,6 @@ public final class VariantUtil {
     }
     
     public static String constructSelectClause(List<SelectingVariant<?>> vars) {
-        StringBuilder builder = new StringBuilder();
-        
-        for(SelectingVariant<?> v : vars) {
-            builder.append(v.getExp()).append("");
-        }
-        
-        return builder.toString();
+        return vars.stream().map(SelectingVariant::getExp).collect(Collectors.joining(", "));
     }
 }

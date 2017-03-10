@@ -14,7 +14,7 @@ import com.jhqc.pxsj.core.query.attributes.Attributes;
 import com.jhqc.pxsj.core.query.root.JoinImpl.JoinType;
 
 public class RootImpl<T> implements Root<T> {
-    private static final String AUTO_ALIAS_PREFIX = "g_r_";
+    private static final String AUTO_ALIAS_PREFIX = "_r_";
     
     protected DomainMeta domainMeta;
     
@@ -112,6 +112,7 @@ public class RootImpl<T> implements Root<T> {
         
         if(!r.joinMap.isEmpty()) {
             for(Join<?,?> join : r.joinMap.values()) {
+                builder.append(" ");
                 doConstruct(join, builder);
             }
         }
