@@ -1,5 +1,7 @@
 package com.jhqc.pxsj.core;
 
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -106,7 +108,7 @@ public class AppTest {
     
     @Test
     public void testTrick() {        
-        Query<Result> query = builder.trick(Result.class).root(Goods.class, "goods").lt(Goods_.price, 2000)
+        Query<Result> query = builder.trick(Result.class).root(Goods.class, "goods").lt(Goods_.price, 2000).gtIf(Goods_.createDate, new Date(), ()->false)
                                                          .leftJoin(Shop.class, "shop").eq(Shop_.shopId, 333).eq(Shop_.status, ShopStatus.NORMAL)
                                                          .done()
                                                          .autoSelect()
