@@ -8,11 +8,11 @@ import com.jhqc.pxsj.core.type.DbEnum;
 class ParameterImpl<T> implements Parameter<T> {
     private static final Logger logger = LogManager.getLogger(ParameterImpl.class);
     
-    private Class<T> javaType;
+    private Class<? extends T> javaType;
     
     private Object value;
     
-    public ParameterImpl(Class<T> javaType, T value) {
+    public ParameterImpl(Class<? extends T> javaType, T value) {
         if(javaType == null) {
             throw new IllegalArgumentException();
         }
@@ -22,7 +22,7 @@ class ParameterImpl<T> implements Parameter<T> {
     }
 
     @Override
-    public Class<T> getJavaType() {
+    public Class<? extends T> getJavaType() {
         return javaType;
     }
 

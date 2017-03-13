@@ -5,7 +5,7 @@ public final class Parameters {
         throw new AssertionError();
     }
     
-    public static <T> Parameter<T> newInstance(Class<T> javaType, T value) {
+    public static <T> Parameter<T> newInstance(Class<? extends T> javaType, T value) {
         return new ParameterImpl<>(javaType, value);
     }
 }

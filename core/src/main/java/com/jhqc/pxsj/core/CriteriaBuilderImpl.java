@@ -70,4 +70,10 @@ class CriteriaBuilderImpl implements CriteriaBuilder {
             Type type) {
         return DateAdd.INSTANCE.apply(date, interval, type);
     }
+
+    @Override
+    public void insert(Object domain) {
+        // TODO Auto-generated method stub
+        
+    }
 }

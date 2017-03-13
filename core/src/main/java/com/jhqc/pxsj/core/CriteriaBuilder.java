@@ -22,6 +22,8 @@ public interface CriteriaBuilder {
     
     <T> Select<T> createQuery(Class<T> result);
     
+    void insert(Object obj);
+    
     <T> Trick<T> trick(Class<T> result);
     
     <T> Trick<T> trick(Class<T> result, TrickType type);

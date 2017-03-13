@@ -1,7 +1,7 @@
 package com.jhqc.pxsj.core.query.predicate;
 
 public interface Parameter<T> {
-    Class<T> getJavaType();
+    Class<? extends T> getJavaType();
     
     Object getValue();
 }
