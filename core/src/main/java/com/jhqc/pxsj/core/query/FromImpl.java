@@ -1,7 +1,6 @@
 package com.jhqc.pxsj.core.query;
 
 import com.jhqc.pxsj.core.query.root.Root;
-import com.jhqc.pxsj.core.query.root.RootUtil;
 
 class FromImpl<T> implements From<T> {
     private SelectImpl<T> select;
@@ -33,7 +32,7 @@ class FromImpl<T> implements From<T> {
         StringBuilder builder = new StringBuilder(select.toString()).append(" ");
         
         if(root != null) {
-            builder.append(RootUtil.constructFromClause(root));
+            builder.append(root.getJoinChainExpression());
         }
         
         return builder.toString();

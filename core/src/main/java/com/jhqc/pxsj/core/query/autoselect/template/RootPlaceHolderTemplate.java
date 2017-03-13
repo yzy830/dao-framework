@@ -1,7 +1,7 @@
 package com.jhqc.pxsj.core.query.autoselect.template;
 
 import com.jhqc.pxsj.core.query.root.Root;
-import com.jhqc.pxsj.core.query.root.RootUtil;
+import com.jhqc.pxsj.core.query.root.Roots;
 
 /**
  * @author Administrator
@@ -23,7 +23,7 @@ class RootPlaceHolderTemplate implements ClauseTemplate {
             throw new IllegalArgumentException();
         }
         
-        if(RootUtil.isJoin(root.getClass())) {
+        if(Roots.isJoin(root.getClass())) {
             throw new UnsupportedOperationException("the input parameter is a join");
         }
         

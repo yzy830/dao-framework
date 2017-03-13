@@ -6,7 +6,7 @@ import com.jhqc.pxsj.annotation.process.util.PropertyNameUtil;
 import com.jhqc.pxsj.core.exception.LackJoinException;
 import com.jhqc.pxsj.core.meta.MetaPool;
 
-public class JoinImpl<T, U> extends RootImpl<U> implements Join<T, U> {
+class JoinImpl<T, U> extends RootImpl<U> implements Join<T, U> {
     private static final String AUTO_ALIAS_PREFIX = "_j_";
     
     public enum JoinType {
@@ -69,17 +69,27 @@ public class JoinImpl<T, U> extends RootImpl<U> implements Join<T, U> {
     }
     
     @Override
-    public String toString() {
+    public String getAliasedExp() {
         return new StringBuilder().append(joinType.getJoin()).append(" ")
-                                  .append(domainMeta.getTable()).append(" ")
-                                  .append(getAlias()).append(" on ")
-                                  .append(root.getAlias()).append(".").append(rootColumn)
-                                  .append(" = ")
-                                  .append(this.getAlias()).append(".").append(joinColumn)
-                                  .toString();
+                .append(domainMeta.getTable()).append(" ")
+                .append(getAlias()).append(" on ")
+                .append(root.getAlias()).append(".").append(rootColumn)
+                .append(" = ")
+                .append(this.getAlias()).append(".").append(joinColumn)
+                .toString();
+    }
+    
+    @Override
+    public String toString() {
+        return getAliasedExp();
     }
     
     protected AliasGenerator getGenerator() {
         return ((RootImpl<T>)root).getGenerator();
+    }
+    
+    @Override
+    public String getJoinChainExpression() {
+        throw new UnsupportedOperationException(String.format("can only get join chain on a root, but this is a join[%s]", this));
     }
 }

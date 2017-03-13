@@ -10,6 +10,6 @@ public class ConstructFromClauseException extends RuntimeException {
     private static final long serialVersionUID = 960970161110751573L;
 
     public ConstructFromClauseException(Root<?> root) {
-        super(String.format("can only construct from clause on root[%]", root.toString()));
+        super(String.format("can only construct from clause on root[%s]", root.toString()));
     }
 }

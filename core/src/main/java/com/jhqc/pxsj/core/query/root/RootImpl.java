@@ -13,7 +13,7 @@ import com.jhqc.pxsj.core.query.attributes.Attribute;
 import com.jhqc.pxsj.core.query.attributes.Attributes;
 import com.jhqc.pxsj.core.query.root.JoinImpl.JoinType;
 
-public class RootImpl<T> implements Root<T> {
+class RootImpl<T> implements Root<T> {
     private static final String AUTO_ALIAS_PREFIX = "_r_";
     
     protected DomainMeta domainMeta;
@@ -117,29 +117,33 @@ public class RootImpl<T> implements Root<T> {
     }
     
     @Override
-    public String toString() {
-        return new StringBuilder().append(domainMeta.getTable()).append(" ")
-                                  .append(getAlias())
-                                  .toString();
+    public String getAliasedExp() {
+        return new StringBuilder().append(domainMeta.getTable()).append(" ").append(getAlias()).toString();
     }
     
-    final public String construct() {
+    @Override
+    public String toString() {
+        return getAliasedExp();
+    }
+    
+    @Override
+    public String getJoinChainExpression() {
         StringBuilder builder = new StringBuilder();
         
-        doConstruct(this, builder);
+        doChain(this, builder);
         
         return builder.toString();
     }
     
-    private void doConstruct(Root<?> root, StringBuilder builder) {
-        builder.append(root.toString());
+    private void doChain(Root<?> root, StringBuilder builder) {
+        builder.append(root.getAliasedExp());
         
         RootImpl<?> r = (RootImpl<?>)root;
         
         if(!r.joinMap.isEmpty()) {
             for(Join<?,?> join : r.joinMap.values()) {
                 builder.append(" ");
-                doConstruct(join, builder);
+                doChain(join, builder);
             }
         }
     }

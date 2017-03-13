@@ -7,7 +7,7 @@ import com.jhqc.pxsj.core.query.function.impls.Now;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
 import com.jhqc.pxsj.core.query.predicate.Predicates;
 import com.jhqc.pxsj.core.query.root.Root;
-import com.jhqc.pxsj.core.query.root.RootImpl;
+import com.jhqc.pxsj.core.query.root.Roots;
 import com.jhqc.pxsj.core.query.variants.DateVariant;
 import com.jhqc.pxsj.core.trick.Trick;
 import com.jhqc.pxsj.core.trick.Trick.TrickType;
@@ -22,7 +22,7 @@ class CriteriaBuilderImpl implements CriteriaBuilder {
 
     @Override
     public <T> Root<T> root(Class<T> domain) {
-        return new RootImpl<>(domain, metaPool);
+        return Roots.root(domain, metaPool);
     }
 
     @Override
@@ -47,7 +47,7 @@ class CriteriaBuilderImpl implements CriteriaBuilder {
 
     @Override
     public <T> Root<T> root(Class<T> domain, String alias) {
-        return new RootImpl<>(domain, metaPool, alias);
+        return Roots.root(domain, alias, metaPool);
     }
 
     @Override

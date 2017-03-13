@@ -53,7 +53,7 @@ class SelectImpl<T> implements Select<T> {
         return resultType;
     }
     
-    public String constructSelectClause(Root<?> root) {
+    public String getSelectedVariantsExpression(Root<?> root) {
         if(selector != null) {
             return selector.select(root);
         } else {
