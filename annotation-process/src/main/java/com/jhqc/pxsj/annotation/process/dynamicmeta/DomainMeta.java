@@ -52,7 +52,7 @@ public class DomainMeta {
         
         PropertyDescriptor[] properties = ReflectionUtil.getPropertyDescriptors(domainModel);
         for(PropertyDescriptor property : properties) {
-            if(!MetaUtil.isMetaDupulicated(property)) {
+            if(MetaUtil.isMetaDupulicated(property)) {
                 throw new DuplicatedMetaConfigException(domainModel, property);
             }
             

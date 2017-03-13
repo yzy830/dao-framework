@@ -1,5 +1,6 @@
 package com.jhqc.pxsj.core;
 
+
 import com.jhqc.pxsj.domain.annotation.Domain;
 import com.jhqc.pxsj.domain.annotation.Id;
 import com.jhqc.pxsj.domain.annotation.Join;

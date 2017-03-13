@@ -49,16 +49,16 @@
 	        <version>3.2.0</version>
 	        <executions>
 	            <execution>
-	                <id>process</id>
+	                <id>process-test</id>
 	                <goals>
-	                    <goal>process</goal>
+	                    <goal>process-test</goal>
 	                </goals>
-	                <phase>generate-sources</phase>
+	                <phase>generate-test-sources</phase>
 	                <configuration>
 	                   <processors>
 	                       <processor>com.jhqc.pxsj.annotation.process.DomainProcessor</processor>
 	                   </processors>
-	                   <defaultOutputDirectory>${project.build.directory}/generated-sources/apt/</defaultOutputDirectory>
+	                   <defaultOutputDirectory>${project.build.directory}/generated-test-sources/apt/</defaultOutputDirectory>
 	                </configuration>
 	            </execution>
 	        </executions>
@@ -145,6 +145,7 @@
     								</versionRange>
     								<goals>
     									<goal>process</goal>
+    									<goal>process-test</goal>
     									<goal>parse-version</goal>
 			                            <goal>add-source</goal>
 			                            <goal>maven-version</goal>
