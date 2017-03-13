@@ -97,60 +97,59 @@ public abstract class AbstractVariant<T, U> implements Variant<T, U> {
     }
 
     @Override
-    public Predicate like(Variant<U, ?> value) {
+    public Predicate like(Variant<? extends U, ?> value) {
         checkSupport(Operation.LIKE);
         
-        return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.LIKE);
+        return Predicates.plainSigleStrParam(this, value, Operation.LIKE);
     }
 
     @Override
-    public Predicate eq(Variant<U, ?> value) {
+    public Predicate eq(Variant<? extends U, ?> value) {
         checkSupport(Operation.EQUAL);
         
-        return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.EQUAL);
+        return Predicates.plainSigleStrParam(this, value, Operation.EQUAL);
     }
 
     @Override
-    public Predicate notEq(Variant<U, ?> value) {
+    public Predicate notEq(Variant<? extends U, ?> value) {
         checkSupport(Operation.NOT_EQUAL);
         
-        return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.NOT_EQUAL);
+        return Predicates.plainSigleStrParam(this, value, Operation.NOT_EQUAL);
     }
 
     @Override
-    public Predicate gt(Variant<U, ?> value) {
+    public Predicate gt(Variant<? extends U, ?> value) {
         checkSupport(Operation.GT);
         
-        return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.GT);
+        return Predicates.plainSigleStrParam(this, value, Operation.GT);
     }
 
     @Override
-    public Predicate ge(Variant<U, ?> value) {
+    public Predicate ge(Variant<? extends U, ?> value) {
         checkSupport(Operation.GE);
         
-        return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.GE);
+        return Predicates.plainSigleStrParam(this, value, Operation.GE);
     }
 
     @Override
-    public Predicate lt(Variant<U, ?> value) {
+    public Predicate lt(Variant<? extends U, ?> value) {
         checkSupport(Operation.LT);
         
-        return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.LT);
+        return Predicates.plainSigleStrParam(this, value, Operation.LT);
     }
 
     @Override
-    public Predicate le(Variant<U, ?> value) {
+    public Predicate le(Variant<? extends U, ?> value) {
         checkSupport(Operation.LE);
         
-        return Predicates.plainSigleStrParam(this, (AbstractVariant<U, ?>)value, Operation.LE);
+        return Predicates.plainSigleStrParam(this, value, Operation.LE);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public Predicate in(List<? extends Variant<U, ?>> values) {
+    public Predicate in(List<? extends Variant<? extends U, ?>> values) {
         checkSupport(Operation.IN);
         
-        return Predicates.plainMultipleStrParams(this, (List<AbstractVariant<U, ?>>)values, Operation.IN);
+        return Predicates.plainMultipleStrParams(this, values, Operation.IN);
     }
 
     @Override

@@ -30,21 +30,21 @@ public interface Variant<T, U> extends StringExpression {
     
     Predicate in(T[] values);
     
-    Predicate like(Variant<U, ?> value);
+    Predicate like(Variant<? extends U, ?> value);
     
-    Predicate eq(Variant<U, ?> value);
+    Predicate eq(Variant<? extends U, ?> value);
     
-    Predicate notEq(Variant<U, ?> value);
+    Predicate notEq(Variant<? extends U, ?> value);
     
-    Predicate gt(Variant<U, ?> value);
+    Predicate gt(Variant<? extends U, ?> value);
     
-    Predicate ge(Variant<U, ?> value);
+    Predicate ge(Variant<? extends U, ?> value);
     
-    Predicate lt(Variant<U, ?> value);
+    Predicate lt(Variant<? extends U, ?> value);
     
-    Predicate le(Variant<U, ?> value);
+    Predicate le(Variant<? extends U, ?> value);
     
-    Predicate in(List<? extends Variant<U, ?>> values);
+    Predicate in(List<? extends Variant<? extends U, ?>> values);
     
     Predicate isNull();
     
