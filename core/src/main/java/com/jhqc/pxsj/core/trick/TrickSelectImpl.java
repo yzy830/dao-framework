@@ -1,7 +1,6 @@
 package com.jhqc.pxsj.core.trick;
 
 import com.jhqc.pxsj.annotation.process.meta.Meta;
-import com.jhqc.pxsj.core.query.Query;
 
 class TrickSelectImpl<T> implements TrickSelect<T> {
     private TrickImpl<T> trick;
@@ -13,11 +12,11 @@ class TrickSelectImpl<T> implements TrickSelect<T> {
     @Override
     public PostTrickSelect<T> select(String alias, Meta<?, ?>... metas) {  
         SelectUtil.select(trick, alias, metas);        
-        return new PostTrickSelectImpl<>(trick);
+        return new PostTrickSelectImpl<>(trick, false);
     }
 
     @Override
-    public Query<T> autoSelect() {
-        return trick.autoSelect();
+    public PostTrickSelect<T> autoSelect() {
+        return new PostTrickSelectImpl<>(trick, true);
     }
 }

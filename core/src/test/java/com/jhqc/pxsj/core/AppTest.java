@@ -109,7 +109,9 @@ public class AppTest {
         Query<Result> query = builder.trick(Result.class).root(Goods.class, "goods").lt(Goods_.price, 2000)
                                                          .leftJoin(Shop.class, "shop").eq(Shop_.shopId, 333).eq(Shop_.status, ShopStatus.NORMAL)
                                                          .done()
-                                                         .autoSelect();
+                                                         .autoSelect()
+                                                         .select("goods", Goods_.createDate)
+                                                         .done();
         
         System.out.println(query.create());
         System.out.println(query.getParams());

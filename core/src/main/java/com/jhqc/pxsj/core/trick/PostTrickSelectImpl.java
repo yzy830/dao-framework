@@ -6,8 +6,11 @@ import com.jhqc.pxsj.core.query.Query;
 public class PostTrickSelectImpl<T> implements PostTrickSelect<T> {
     private TrickImpl<T> trick;
     
-    public PostTrickSelectImpl(TrickImpl<T> trick) {
+    private boolean autoSelect;
+    
+    public PostTrickSelectImpl(TrickImpl<T> trick, boolean autoSelect) {
         this.trick = trick;
+        this.autoSelect = autoSelect;
     }
 
     @Override
@@ -18,7 +21,7 @@ public class PostTrickSelectImpl<T> implements PostTrickSelect<T> {
 
     @Override
     public Query<T> done() {
-        return trick.selectDone();
+        return trick.selectDone(autoSelect);
     }
 
 }

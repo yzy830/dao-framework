@@ -47,6 +47,19 @@ class SelectImpl<T> implements Select<T> {
         
         return new FromImpl<>(this);
     }
+    
+    @Override
+    public From<T> autoSelect(SelectingVariant<?>... additionalVariants) {
+        if((additionalVariants == null) || (additionalVariants.length == 0)) {
+            throw new IllegalArgumentException();
+        }
+        
+        variants.addAll(Arrays.asList(additionalVariants));
+        
+        selector = Selectors.simple(pool, resultType);
+        
+        return new FromImpl<>(this);
+    }
 
     @Override
     public Class<T> getResultType() {
@@ -54,11 +67,19 @@ class SelectImpl<T> implements Select<T> {
     }
     
     public String getSelectedVariantsExpression(Root<?> root) {
-        if(selector != null) {
-            return selector.select(root);
-        } else {
-            return selectVariants(variants);
+        if(root == null) {
+            throw new IllegalArgumentException();
         }
+        
+        StringBuilder builder = new StringBuilder();
+        
+        builder.append(selectVariants(variants));
+        
+        if(selector != null) {
+            builder.append(", ").append(selector.select(root));
+        }
+        
+        return builder.toString();
     }
     
     private static String selectVariants(List<? extends SelectingVariant<?>> variants) {
@@ -67,10 +88,14 @@ class SelectImpl<T> implements Select<T> {
     
     @Override
     public String toString() {
+        StringBuilder builder = new StringBuilder();
+        
+        builder.append(selectVariants(variants));
+        
         if(selector != null) {
-            return selector.getTemplate().getTemplate();
-        } else {
-            return selectVariants(variants);
+            builder.append(", ").append(selector.getTemplate().getTemplate());
         }
+        
+        return builder.toString();
     }
 }

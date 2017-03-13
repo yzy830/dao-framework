@@ -12,9 +12,9 @@ import com.jhqc.pxsj.core.CriteriaBuilder;
 import com.jhqc.pxsj.core.exception.AbsentRootAliasException;
 import com.jhqc.pxsj.core.exception.DuplicatedAliasException;
 import com.jhqc.pxsj.core.query.Query;
-import com.jhqc.pxsj.core.query.attributes.Attribute;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
 import com.jhqc.pxsj.core.query.root.Root;
+import com.jhqc.pxsj.core.query.variants.SelectingVariant;
 
 class TrickImpl<T> implements Trick<T> {
     
@@ -26,7 +26,7 @@ class TrickImpl<T> implements Trick<T> {
     
     private Class<T> resultType;
     
-    private List<Attribute<?, ?>> attributes = new ArrayList<>();
+    private List<SelectingVariant<?>> attributes = new ArrayList<>();
     
     private Root<?> root;
     
@@ -100,19 +100,23 @@ class TrickImpl<T> implements Trick<T> {
         return resultType;
     }
 
-    public List<Attribute<?, ?>> getAttributes() {
+    public List<? extends SelectingVariant<?>> getAttributes() {
         return Collections.unmodifiableList(attributes);
     }
     
-    public void addAttributes(List<? extends Attribute<?, ?>> attrs) {
+    public void addAttributes(List<? extends SelectingVariant<?>> attrs) {
         attributes.addAll(attrs);
     }
     
-    public Query<T> selectDone() {
-        return builder.createQuery(resultType).select(attributes.toArray(new Attribute<?, ?>[] {})).from(root).where(predicate);
-    }
-    
-    public Query<T> autoSelect() {
-        return builder.createQuery(resultType).autoSelect().from(root).where(predicate);
+    public Query<T> selectDone(boolean autoSelect) {
+        if(autoSelect) {
+            if(attributes.isEmpty()) {
+                return builder.createQuery(resultType).autoSelect().from(root).where(predicate);
+            } else {
+                return builder.createQuery(resultType).autoSelect(attributes.toArray(new SelectingVariant<?>[] {})).from(root).where(predicate);
+            }
+        } else {
+            return builder.createQuery(resultType).select(attributes.toArray(new SelectingVariant<?>[] {})).from(root).where(predicate);
+        }
     }
 }

@@ -16,5 +16,7 @@ public interface Select<T> {
      */
     From<T> autoSelect();
     
+    From<T> autoSelect(SelectingVariant<?>... additionalVariants);
+    
     Class<T> getResultType();
 }
