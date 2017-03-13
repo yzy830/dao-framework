@@ -3,6 +3,7 @@ package com.jhqc.pxsj.core.query.predicate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.jhqc.pxsj.core.query.Operation;
 import com.jhqc.pxsj.core.query.variants.AbstractVariant;
@@ -14,7 +15,7 @@ class PredicateImpl implements Predicate {
     
     private StringBuilder sql;
     
-    private List<Object> params = new ArrayList<>();
+    private List<Parameter<?>> params = new ArrayList<>();
     
     public PredicateImpl(boolean isTrue) {
         if(isTrue) {
@@ -26,7 +27,7 @@ class PredicateImpl implements Predicate {
     
     public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, T value, Operation operation) {
         sql = new StringBuilder().append("(").append(operation.formatPrepared(attribute.getExp(), 1)).append(")");
-        params.add(value);
+        params.add(Parameters.newInstance(attribute.getJavaType(), value));
     }
     
     public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, List<T> values, Operation operation) {
@@ -35,7 +36,8 @@ class PredicateImpl implements Predicate {
         }
         
         sql = new StringBuilder().append("(").append(operation.formatPrepared(attribute.getExp(), values.size())).append(")");
-        params.addAll(values);
+        params.addAll(values.stream().map(v -> Parameters.newInstance(attribute.getJavaType(), v))
+                                     .collect(Collectors.toList()));
     }
     
     public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, Operation operation) {
@@ -84,7 +86,7 @@ class PredicateImpl implements Predicate {
         return getExp();
     }
 
-    public List<Object> getParams() {
+    public List<? extends Parameter<?>> getParams() {
         return Collections.unmodifiableList(params);
     }
 

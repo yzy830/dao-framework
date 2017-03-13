@@ -2,7 +2,7 @@ package com.jhqc.pxsj.core.query;
 
 import java.util.List;
 
-import com.jhqc.pxsj.core.query.predicate.Predicates;
+import com.jhqc.pxsj.core.query.predicate.Parameter;
 
 public class QueryImpl<T> implements Query<T> {
     private WhereImpl<T> where;
@@ -30,8 +30,8 @@ public class QueryImpl<T> implements Query<T> {
     }
 
     @Override
-    public List<Object> getParams() {
-        return Predicates.getParams(where.getPredicate());
+    public List<? extends Parameter<?>> getParams() {
+        return where.getPredicate().getParams();
     }
 
     @Override

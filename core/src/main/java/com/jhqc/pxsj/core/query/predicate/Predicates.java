@@ -105,10 +105,4 @@ public final class Predicates {
     public static Predicate alwaysFlase() {
         return new PredicateImpl(false);
     }
-    
-    public static List<Object> getParams(Predicate predicate) {
-        PredicateImpl p = (PredicateImpl)predicate;
-        
-        return p.getParams();
-    }
 }
