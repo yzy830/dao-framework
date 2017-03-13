@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.jhqc.pxsj.core.query.Operation;
-import com.jhqc.pxsj.core.query.variants.AbstractVariant;
+import com.jhqc.pxsj.core.query.variants.Variant;
 
 class PredicateImpl implements Predicate {
     private static final String TRUE_EXP = "1 = 1";
@@ -25,12 +25,12 @@ class PredicateImpl implements Predicate {
         }
     }
     
-    public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, T value, Operation operation) {
+    public <T, U> PredicateImpl(Variant<T, U> attribute, T value, Operation operation) {
         sql = new StringBuilder().append("(").append(operation.formatPrepared(attribute.getExp(), 1)).append(")");
         params.add(Parameters.newInstance(attribute.getJavaType(), value));
     }
     
-    public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, List<T> values, Operation operation) {
+    public <T, U> PredicateImpl(Variant<T, U> attribute, List<T> values, Operation operation) {
         if(values == null) {
             values = new ArrayList<>();
         }
@@ -40,11 +40,11 @@ class PredicateImpl implements Predicate {
                                      .collect(Collectors.toList()));
     }
     
-    public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, Operation operation) {
+    public <T, U> PredicateImpl(Variant<T, U> attribute, Operation operation) {
         sql = new StringBuilder().append("(").append(operation.formatPrepared(attribute.getExp(), 0)).append(")");
     }
     
-    public <T, U> PredicateImpl(AbstractVariant<T, U> attribute, Operation operation, AbstractVariant<U, ?> value) { 
+    public <T, U> PredicateImpl(Variant<T, U> attribute, Operation operation, Variant<? extends U, ?> value) { 
         if(value == null) {
             throw new NullPointerException();
         }
@@ -52,13 +52,13 @@ class PredicateImpl implements Predicate {
         sql = new StringBuilder().append("(").append(operation.formatPlain(attribute.getExp(), new String[] {value.getExp()})).append(")");
     }
     
-    public <T, U, X extends AbstractVariant<U, ?>> PredicateImpl(AbstractVariant<T, U> attribute, Operation operation, List<X> values) {
+    public <T, U> PredicateImpl(Variant<T, U> attribute, Operation operation, List<? extends Variant<? extends U, ?>> values) {
         if(values == null) {
             values = new ArrayList<>();
         }
         
         List<String> exps = new ArrayList<>();
-        for(X value : values) {
+        for(Variant<? extends U, ?> value : values) {
             exps.add(value.getExp());
         }
         
