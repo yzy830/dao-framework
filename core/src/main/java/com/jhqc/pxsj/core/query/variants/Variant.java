@@ -2,6 +2,7 @@ package com.jhqc.pxsj.core.query.variants;
 
 import java.util.List;
 
+import com.jhqc.pxsj.core.StringExpression;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
 
 /**
@@ -12,7 +13,7 @@ import com.jhqc.pxsj.core.query.predicate.Predicate;
  * @param <U>
  *          操作数类型
  */
-public interface Variant<T, U> extends SelectingVariant<T> {
+public interface Variant<T, U> extends StringExpression {
     Predicate like(T value);
     
     Predicate eq(T value);
@@ -50,4 +51,11 @@ public interface Variant<T, U> extends SelectingVariant<T> {
     Predicate notNull();
     
     SelectingVariant<T> as(String alias);
+    
+    /**
+     * 变量的java类型
+     * 
+     * @return 变量的java类型
+     */
+    Class<T> getJavaType();
 }

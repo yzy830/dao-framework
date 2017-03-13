@@ -12,6 +12,8 @@ public class Shop {
     private String name;
     
     private ShopStatus status;
+    
+    private String address;
 
     @Id
     public Integer getShopId() {
@@ -37,5 +39,13 @@ public class Shop {
 
     public void setStatus(ShopStatus status) {
         this.status = status;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

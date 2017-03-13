@@ -3,13 +3,13 @@ package com.jhqc.pxsj.core.query;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.jhqc.pxsj.core.meta.MetaPool;
 import com.jhqc.pxsj.core.query.autoselect.AutoSelector;
 import com.jhqc.pxsj.core.query.autoselect.Selectors;
 import com.jhqc.pxsj.core.query.root.Root;
 import com.jhqc.pxsj.core.query.variants.SelectingVariant;
-import com.jhqc.pxsj.core.query.variants.VariantUtil;
 
 class SelectImpl<T> implements Select<T> {
     
@@ -57,8 +57,12 @@ class SelectImpl<T> implements Select<T> {
         if(selector != null) {
             return selector.select(root);
         } else {
-            return VariantUtil.constructSelectClause(variants);
+            return selectVariants(variants);
         }
+    }
+    
+    private static String selectVariants(List<? extends SelectingVariant<?>> variants) {
+        return variants.stream().map(t -> t.getExp() + " as " + t.getAlias()).collect(Collectors.joining(", "));
     }
     
     @Override
@@ -66,7 +70,7 @@ class SelectImpl<T> implements Select<T> {
         if(selector != null) {
             return selector.getTemplate().getTemplate();
         } else {
-            return VariantUtil.constructSelectClause(variants);
+            return selectVariants(variants);
         }
     }
 }

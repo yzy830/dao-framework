@@ -1,16 +1,13 @@
 package com.jhqc.pxsj.core.query.variants;
 
-public class SelectingVariantImpl<T> implements SelectingVariant<T> {
-    private AbstractVariant<T, ?> variant;
+class SelectingVariantImpl<T> implements SelectingVariant<T> {
+    private Variant<T, ?> variant;
     
     private String alias;
     
-    private String exp;
-    
-    public SelectingVariantImpl(AbstractVariant<T, ?> variant, String alias) {
+    public SelectingVariantImpl(Variant<T, ?> variant, String alias) {
         this.variant = variant;
         this.alias = alias;
-        this.exp = new StringBuilder(variant.getExp()).append(" as ").append(alias).toString();
     }
 
     @Override
@@ -19,7 +16,7 @@ public class SelectingVariantImpl<T> implements SelectingVariant<T> {
     }
 
     public String getExp() {
-        return exp;
+        return variant.getExp();
     }
 
     @Override
@@ -29,6 +26,6 @@ public class SelectingVariantImpl<T> implements SelectingVariant<T> {
     
     @Override
     public String toString() {
-        return exp;
+        return variant.getExp();
     }
 }

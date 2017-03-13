@@ -18,21 +18,13 @@ public abstract class AbstractVariant<T, U> implements Variant<T, U> {
         this.exp = exp;
     }
 
-    /**
-     * 变量的表达式，例如now，sum(t_d_order_base.amount)等
-     * 
-     * @return 表达式 
-     */
+    @Override
     public String getExp() {
         return exp;
     }
     
     public SelectingVariant<T> as(String alias) {
         return new SelectingVariantImpl<>(this, alias);
-    }
-    
-    public String getAlias() {
-        return "";
     }
 
     @Override
