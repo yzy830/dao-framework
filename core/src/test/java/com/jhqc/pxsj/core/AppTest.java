@@ -10,7 +10,7 @@ import com.jhqc.pxsj.core.query.root.Root;
 import com.jhqc.pxsj.domain.annotation.Source;
 import com.jhqc.pxsj.domain.annotation.SourceProperty;
 
-public class BaseCase {
+public class AppTest {
     private CriteriaBuilder builder;
     
     @Before
