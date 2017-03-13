@@ -81,10 +81,15 @@ class PredicateImpl implements Predicate {
 
     @Override
     public String toString() {
-        return sql.toString();
+        return getExp();
     }
 
     public List<Object> getParams() {
         return Collections.unmodifiableList(params);
+    }
+
+    @Override
+    public String getExp() {
+        return sql.toString();
     }
 }

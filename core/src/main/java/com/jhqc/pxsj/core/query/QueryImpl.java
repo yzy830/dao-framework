@@ -3,7 +3,6 @@ package com.jhqc.pxsj.core.query;
 import java.util.List;
 
 import com.jhqc.pxsj.core.query.predicate.Predicates;
-import com.jhqc.pxsj.core.query.root.Roots;
 
 public class QueryImpl<T> implements Query<T> {
     private WhereImpl<T> where;
@@ -21,7 +20,7 @@ public class QueryImpl<T> implements Query<T> {
                                  .append(" from ")                                                      
                                  .append(from.getRoot().getJoinChainExpression())                  
                                  .append(" where ")                                                     
-                                 .append(Predicates.getCriteriaClause(where.getPredicate()))
+                                 .append(where.getPredicate().getExp())
                                  .toString();
     }
 

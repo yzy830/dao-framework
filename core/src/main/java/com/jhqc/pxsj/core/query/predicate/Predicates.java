@@ -111,10 +111,4 @@ public final class Predicates {
         
         return p.getParams();
     }
-    
-    public static String getCriteriaClause(Predicate predicate) {
-        PredicateImpl p = (PredicateImpl)predicate;
-        
-        return p.toString();
-    }
 }
