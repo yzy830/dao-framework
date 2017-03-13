@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.jhqc.pxsj.core.query.Query;
+import com.jhqc.pxsj.core.query.function.DateAdd;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
 import com.jhqc.pxsj.core.query.root.Join;
 import com.jhqc.pxsj.core.query.root.Root;
@@ -91,7 +92,9 @@ public class AppTest {
         Join<Goods, Shop> shop = goods.leftJoin(Shop.class, "shop"); 
         
         Predicate predicate = builder.alwaysTrue().and(shop.get(Shop_.shopId).eq(3))
-                                                 .and(goods.get(Goods_.price).lt(1300));
+                                                  .and(builder.dateAdd(goods.get(Goods_.createDate), 2, DateAdd.Type.HOUR).lt(builder.now()))
+                                                  .and(goods.get(Goods_.price).lt(1300))
+                                                  ;
         
         Query<Result> query = builder.createQuery(Result.class).autoSelect()
                                                                 .from(goods)

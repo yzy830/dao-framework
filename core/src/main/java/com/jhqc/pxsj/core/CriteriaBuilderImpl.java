@@ -1,14 +1,19 @@
 package com.jhqc.pxsj.core;
 
+import java.util.Date;
+
 import com.jhqc.pxsj.core.meta.MetaPool;
 import com.jhqc.pxsj.core.query.Queries;
 import com.jhqc.pxsj.core.query.Select;
-import com.jhqc.pxsj.core.query.function.impls.Now;
+import com.jhqc.pxsj.core.query.function.DateAdd.Type;
+import com.jhqc.pxsj.core.query.function.DateAdd;
+import com.jhqc.pxsj.core.query.function.Now;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
 import com.jhqc.pxsj.core.query.predicate.Predicates;
 import com.jhqc.pxsj.core.query.root.Root;
 import com.jhqc.pxsj.core.query.root.Roots;
 import com.jhqc.pxsj.core.query.variants.DateVariant;
+import com.jhqc.pxsj.core.query.variants.Variant;
 import com.jhqc.pxsj.core.trick.Trick;
 import com.jhqc.pxsj.core.trick.Trick.TrickType;
 import com.jhqc.pxsj.core.trick.Tricks;
@@ -58,5 +63,11 @@ class CriteriaBuilderImpl implements CriteriaBuilder {
     @Override
     public <T> Trick<T> trick(Class<T> result, TrickType type) {
         return Tricks.trick(this, type, result);
+    }
+
+    @Override
+    public DateVariant dateAdd(Variant<? extends Date, ?> date, int interval,
+            Type type) {
+        return DateAdd.INSTANCE.apply(date, interval, type);
     }
 }

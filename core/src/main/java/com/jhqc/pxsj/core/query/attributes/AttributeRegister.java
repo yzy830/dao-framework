@@ -1,6 +1,7 @@
 package com.jhqc.pxsj.core.query.attributes;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import com.jhqc.pxsj.annotation.process.meta.Meta;
 import com.jhqc.pxsj.core.query.root.Root;
@@ -79,6 +80,24 @@ enum AttributeRegister implements AttributeGenerator {
             return new StringAttribute(root, meta);
         }
         
+    },
+    
+    DATE(Date.class) {
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public Attribute generate(Root root, Meta meta) {
+            return new DateAttribute(root, meta);
+        }
+    },
+    
+    SQL_DATE(java.sql.Date.class) {
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public Attribute generate(Root root, Meta meta) {
+            return new SqlDateAttribute(root, meta);
+        }
     }
     
     ;

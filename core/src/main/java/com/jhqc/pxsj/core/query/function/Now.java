@@ -1,11 +1,10 @@
-package com.jhqc.pxsj.core.query.function.impls;
+package com.jhqc.pxsj.core.query.function;
 
 import java.util.Date;
 
-import com.jhqc.pxsj.core.query.function.Simple;
 import com.jhqc.pxsj.core.query.variants.DateVariant;
 
-public enum Now implements Simple<Date, Date> {
+public enum Now implements Function<Date> {
     INSTANCE
     ; 
     
@@ -14,7 +13,6 @@ public enum Now implements Simple<Date, Date> {
         return Date.class;
     }
 
-    @Override
     public DateVariant apply() {
         return new DateVariant(getResultType(), "now()");
     }

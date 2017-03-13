@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.jhqc.pxsj.core.query.Operation;
+import com.jhqc.pxsj.core.query.function.ParameterizedVariant;
 import com.jhqc.pxsj.core.query.variants.Variant;
 
 class PredicateImpl implements Predicate {
@@ -25,44 +26,78 @@ class PredicateImpl implements Predicate {
         }
     }
     
-    public <T, U> PredicateImpl(Variant<T, U> attribute, T value, Operation operation) {
-        sql = new StringBuilder().append("(").append(operation.formatPrepared(attribute.getExp(), 1)).append(")");
-        params.add(Parameters.newInstance(attribute.getJavaType(), value));
+    public <T, U> PredicateImpl(Variant<T, U> variant, T value, Operation operation) {
+        sql = new StringBuilder().append("(").append(operation.formatPrepared(variant.getExp(), 1)).append(")");
+        
+        if(variant instanceof ParameterizedVariant) {
+            ParameterizedVariant<T, U> pAttribute = (ParameterizedVariant<T, U>)variant;
+            params.addAll(pAttribute.getParams());
+        }
+        params.add(Parameters.newInstance(variant.getJavaType(), value));
     }
     
-    public <T, U> PredicateImpl(Variant<T, U> attribute, List<T> values, Operation operation) {
+    public <T, U> PredicateImpl(Variant<T, U> variant, List<T> values, Operation operation) {
         if(values == null) {
             values = new ArrayList<>();
         }
         
-        sql = new StringBuilder().append("(").append(operation.formatPrepared(attribute.getExp(), values.size())).append(")");
-        params.addAll(values.stream().map(v -> Parameters.newInstance(attribute.getJavaType(), v))
+        sql = new StringBuilder().append("(").append(operation.formatPrepared(variant.getExp(), values.size())).append(")");
+        
+        if(variant instanceof ParameterizedVariant) {
+            ParameterizedVariant<T, U> pAttribute = (ParameterizedVariant<T, U>)variant;
+            params.addAll(pAttribute.getParams());
+        }
+        params.addAll(values.stream().map(v -> Parameters.newInstance(variant.getJavaType(), v))
                                      .collect(Collectors.toList()));
     }
     
-    public <T, U> PredicateImpl(Variant<T, U> attribute, Operation operation) {
-        sql = new StringBuilder().append("(").append(operation.formatPrepared(attribute.getExp(), 0)).append(")");
+    public <T, U> PredicateImpl(Variant<T, U> variant, Operation operation) {
+        sql = new StringBuilder().append("(").append(operation.formatPrepared(variant.getExp(), 0)).append(")");
+        
+        if(variant instanceof ParameterizedVariant) {
+            ParameterizedVariant<T, U> pAttribute = (ParameterizedVariant<T, U>)variant;
+            params.addAll(pAttribute.getParams());
+        }
     }
     
-    public <T, U> PredicateImpl(Variant<T, U> attribute, Operation operation, Variant<? extends U, ?> value) { 
+    public <T, U> PredicateImpl(Variant<T, U> variant, Operation operation, Variant<? extends U, ?> value) { 
         if(value == null) {
             throw new NullPointerException();
         }
         
-        sql = new StringBuilder().append("(").append(operation.formatPlain(attribute.getExp(), new String[] {value.getExp()})).append(")");
-    }
+        sql = new StringBuilder().append("(").append(operation.formatPlain(variant.getExp(), new String[] {value.getExp()})).append(")");
+        
+        if(variant instanceof ParameterizedVariant) {
+            ParameterizedVariant<T, U> pAttribute = (ParameterizedVariant<T, U>)variant;
+            params.addAll(pAttribute.getParams());
+        }
+        if(value instanceof ParameterizedVariant) {
+            ParameterizedVariant<? extends U, ?> pValue = (ParameterizedVariant<? extends U, ?>)value;
+            params.addAll(pValue.getParams());
+        }
+    } 
     
-    public <T, U> PredicateImpl(Variant<T, U> attribute, Operation operation, List<? extends Variant<? extends U, ?>> values) {
+    public <T, U> PredicateImpl(Variant<T, U> variant, Operation operation, List<? extends Variant<? extends U, ?>> values) {
         if(values == null) {
             values = new ArrayList<>();
+        }
+        
+        if(variant instanceof ParameterizedVariant) {
+            ParameterizedVariant<T, U> pAttribute = (ParameterizedVariant<T, U>)variant;
+            params.addAll(pAttribute.getParams());
         }
         
         List<String> exps = new ArrayList<>();
         for(Variant<? extends U, ?> value : values) {
             exps.add(value.getExp());
+            
+            if(value instanceof ParameterizedVariant) {
+                ParameterizedVariant<? extends U, ?> pValue = (ParameterizedVariant<? extends U, ?>)value;
+                params.addAll(pValue.getParams());
+            }
         }
         
-        sql = new StringBuilder().append("(").append(operation.formatPlain(attribute.getExp(), exps.toArray(new String[] {}))).append(")");
+        sql = new StringBuilder().append("(").append(operation.formatPlain(variant.getExp(), exps.toArray(new String[] {}))).append(")");
     }
 
     @Override

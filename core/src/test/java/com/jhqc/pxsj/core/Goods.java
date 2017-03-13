@@ -1,5 +1,7 @@
 package com.jhqc.pxsj.core;
 
+import java.util.Date;
+
 import com.jhqc.pxsj.domain.annotation.Domain;
 import com.jhqc.pxsj.domain.annotation.Id;
 import com.jhqc.pxsj.domain.annotation.Join;
@@ -14,6 +16,8 @@ public class Goods {
     private String name;
     
     private Long shopId;
+    
+    private Date createDate;
 
     @Id
     public Integer getGoodsId() {
@@ -49,5 +53,13 @@ public class Goods {
 
     public void setShopId(Long shopId) {
         this.shopId = shopId;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 }
