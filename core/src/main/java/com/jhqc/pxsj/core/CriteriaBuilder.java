@@ -2,6 +2,7 @@ package com.jhqc.pxsj.core;
 
 import java.util.Date;
 
+import com.jhqc.pxsj.core.query.Insert;
 import com.jhqc.pxsj.core.query.Select;
 import com.jhqc.pxsj.core.query.function.DateAdd;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
@@ -22,7 +23,7 @@ public interface CriteriaBuilder {
     
     <T> Select<T> createQuery(Class<T> result);
     
-    void insert(Object obj);
+    <T> Insert<T> creatInsert(Class<T> domainModel);
     
     <T> Trick<T> trick(Class<T> result);
     

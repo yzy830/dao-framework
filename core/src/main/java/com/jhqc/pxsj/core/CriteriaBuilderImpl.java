@@ -3,8 +3,9 @@ package com.jhqc.pxsj.core;
 import java.util.Date;
 
 import com.jhqc.pxsj.core.meta.MetaPool;
-import com.jhqc.pxsj.core.query.Queries;
+import com.jhqc.pxsj.core.query.Insert;
 import com.jhqc.pxsj.core.query.Select;
+import com.jhqc.pxsj.core.query.Sqls;
 import com.jhqc.pxsj.core.query.function.DateAdd.Type;
 import com.jhqc.pxsj.core.query.function.DateAdd;
 import com.jhqc.pxsj.core.query.function.Now;
@@ -47,7 +48,7 @@ class CriteriaBuilderImpl implements CriteriaBuilder {
 
     @Override
     public <T> Select<T> createQuery(Class<T> result) {
-        return Queries.createSelect(result, metaPool);
+        return Sqls.createSelect(result, metaPool);
     }
 
     @Override
@@ -72,8 +73,7 @@ class CriteriaBuilderImpl implements CriteriaBuilder {
     }
 
     @Override
-    public void insert(Object domain) {
-        // TODO Auto-generated method stub
-        
+    public <T> Insert<T> creatInsert(Class<T> domain) {
+        return Sqls.createInsert(metaPool, domain);
     }
 }

@@ -14,7 +14,7 @@ import com.jhqc.pxsj.core.meta.MetaPool;
 import com.jhqc.pxsj.core.query.predicate.Parameter;
 import com.jhqc.pxsj.core.query.predicate.Parameters;
 
-public class InsertImpl implements Insert {
+public class InsertImpl<T> implements Insert<T> {
     private static final String INSERT_TEMPLATE = "insert into %s (%s) values(%s)";
 
     private DomainMeta meta;
@@ -23,59 +23,45 @@ public class InsertImpl implements Insert {
     
     private List<Parameter<?>> params = new ArrayList<>();
     
-    private Object obj;
-    
-    public InsertImpl(MetaPool pool, Object obj) {
-        if((obj == null) || (pool == null)) {
+    public InsertImpl(MetaPool pool, Class<?> domainModel) {
+        if((domainModel == null) || (pool == null)) {
             throw new IllegalArgumentException();
         }
         
-        meta = pool.getMeta(obj.getClass());
+        meta = pool.getMeta(domainModel);
         if(meta == null) {
-            throw new InsertNonDomainModelException(obj.getClass());
+            throw new InsertNonDomainModelException(domainModel);
         }
-        this.obj = obj;
-        sql = createSql(meta, obj, params);
+        sql = createSql(meta, domainModel, params);
     }
 
     @Override
     public String create() {
         return sql;
     }
-
-    @Override
-    public List<? extends Parameter<?>> getParams() {
-        return params;
-    }
     
-    private static String createSql(DomainMeta meta, Object obj, List<Parameter<?>> params) {        
-        Object id = getField(meta.getIdMeta().getDescriptor().getReadMethod(), obj);
+    private static <T> String createSql(DomainMeta meta, Class<T> clazz, List<Parameter<?>> params) {        
         List<String> columns = new ArrayList<>();
         List<String> placeHolders = new ArrayList<>();
         
-        if(id != null) {
-            columns.add(meta.getIdMeta().getColumnName());
-            placeHolders.add("?");
-            params.add(Parameters.newInstance(id.getClass(), id));
-        }
+        //应该始终成立
+        columns.add(meta.getIdMeta().getColumnName());
+        placeHolders.add("?");
         
         for(PropertyMeta pMeta : meta.getPropertyMetas().values()) {
             columns.add(pMeta.getColumnName());
             placeHolders.add("?");
-            params.add(Parameters.newInstance(pMeta.getDescriptor().getPropertyType(), 
-                                              getField(pMeta.getDescriptor().getReadMethod(), obj)));
         }
         
         return String.format(INSERT_TEMPLATE, meta.getTable(), 
-                             columns.stream().collect(Collectors.toList()),
-                             placeHolders.stream().collect(Collectors.toList()));
+                             columns.stream().collect(Collectors.joining(", ")),
+                             placeHolders.stream().collect(Collectors.joining(", ")));
     }
     
     private static Object getField(Method getter, Object obj) {
         try {
             return getter.invoke(obj);
-        } catch (IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             throw new AccessBeanMethodException(getter, e);
         }
     }
@@ -89,7 +75,21 @@ public class InsertImpl implements Insert {
     }
 
     @Override
-    public void saveId(Object id) {
+    public void saveId(T obj, Object id) {
         putField(meta.getIdMeta().getDescriptor().getWriteMethod(), obj, id);
+    }
+
+    @Override
+    public List<? extends Parameter<?>> getParams(T obj) {
+        List<Parameter<?>> params = new ArrayList<>();
+        
+        params.add(Parameters.newInstance(meta.getIdMeta().getDescriptor().getPropertyType(), 
+                                          getField(meta.getIdMeta().getDescriptor().getReadMethod(), obj)));
+        for(PropertyMeta pMeta : meta.getPropertyMetas().values()) {
+            params.add(Parameters.newInstance(pMeta.getDescriptor().getPropertyType(), 
+                                              getField(pMeta.getDescriptor().getReadMethod(), obj)));
+        }
+        
+        return params;
     }
 }

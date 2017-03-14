@@ -5,6 +5,7 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.jhqc.pxsj.core.query.Insert;
 import com.jhqc.pxsj.core.query.Query;
 import com.jhqc.pxsj.core.query.function.DateAdd;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
@@ -119,5 +120,19 @@ public class AppTest {
         
         System.out.println(query.create());
         System.out.println(query.getParams());
+    }
+    
+    @Test
+    public void testInsert() {
+        Insert<Goods> insert = builder.creatInsert(Goods.class);
+        
+        Goods g = new Goods();
+        g.setCreateDate(null);
+        g.setName("测试店铺");
+        g.setPrice(120);
+        g.setShopId(1L);
+        
+        System.out.println(insert.create());
+        System.out.println(insert.getParams(g));
     }
 }
