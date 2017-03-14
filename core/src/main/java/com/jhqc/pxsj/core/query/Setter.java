@@ -1,6 +1,7 @@
 package com.jhqc.pxsj.core.query;
 
-import com.jhqc.pxsj.core.query.attributes.Attribute;
+import com.jhqc.pxsj.annotation.process.meta.Meta;
+import com.jhqc.pxsj.core.query.root.Root;
 import com.jhqc.pxsj.core.query.variants.Variant;
 
 /**
@@ -10,7 +11,9 @@ import com.jhqc.pxsj.core.query.variants.Variant;
  *          领域模型
  */
 public interface Setter<T> {
-    <X, Y> PostSetter<T> set(Attribute<X, Y> attribute, X value);
+    <X, Y> PostSetter<T> set(Meta<X, Y> property, X value);
     
-    <X, Y> PostSetter<T> set(Attribute<X, Y> attribute, Variant<? extends Y, ?> value);
+    <X, Y> PostSetter<T> set(Meta<X, Y> property, Variant<? extends Y, ?> value);
+    
+    Root<T> getRoot();
 }

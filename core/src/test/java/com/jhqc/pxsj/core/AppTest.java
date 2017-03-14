@@ -8,8 +8,10 @@ import org.junit.Test;
 
 import com.jhqc.pxsj.core.query.Insert;
 import com.jhqc.pxsj.core.query.Query;
+import com.jhqc.pxsj.core.query.Setter;
 import com.jhqc.pxsj.core.query.Update;
 import com.jhqc.pxsj.core.query.function.DateAdd;
+import com.jhqc.pxsj.core.query.function.DateAdd.Type;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
 import com.jhqc.pxsj.core.query.root.Join;
 import com.jhqc.pxsj.core.query.root.Root;
@@ -146,6 +148,20 @@ public class AppTest {
                                                                .set(Goods_.price, 123)
                                                                .done();
         
+        System.out.println(update.create());
+        System.out.println(update.getParams());
+    }
+    
+    @Test
+    public void testUpdate() {
+        Setter<Goods> setter = builder.createUpdate(Goods.class);
+        Root<Goods> root = setter.getRoot();
+        Predicate p = root.get(Goods_.goodsId).eq(1).and(
+                               builder.dateAdd(root.get(Goods_.createDate), 1, Type.DAY).lt(builder.now()));
+        
+        Update<Goods> update = setter.set(Goods_.name, "yang zongyuan")
+                                     .set(Goods_.price, 123)
+                                     .where(p);
         System.out.println(update.create());
         System.out.println(update.getParams());
     }

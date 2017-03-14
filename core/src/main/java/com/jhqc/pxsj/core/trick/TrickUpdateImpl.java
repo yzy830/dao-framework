@@ -63,17 +63,17 @@ class TrickUpdateImpl<D> implements TrickUpdate<D> {
     
     public <X, Y> void set(Meta<X, Y> property, X value) {
         if(postSetter != null) {
-            postSetter.set(root.get(property), value);
+            postSetter.set(property, value);
         } else {
-            postSetter = setter.set(root.get(property), value);
+            postSetter = setter.set(property, value);
         }
     }
     
     public <X, Y> void set(Meta<X, Y> property, Variant<? extends Y, ?> value) {
         if(postSetter != null) {
-            postSetter.set(root.get(property), value);
+            postSetter.set(property, value);
         } else {
-            postSetter = setter.set(root.get(property), value);
+            postSetter = setter.set(property, value);
         }
     }
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.jhqc.pxsj.core.query.attributes.Attribute;
+import com.jhqc.pxsj.annotation.process.meta.Meta;
 import com.jhqc.pxsj.core.query.root.Root;
 import com.jhqc.pxsj.core.query.set.Setting;
 import com.jhqc.pxsj.core.query.set.Settings;
@@ -25,15 +25,15 @@ class SetterImpl<T> implements Setter<T> {
     }
 
     @Override
-    public <X, Y> PostSetter<T> set(Attribute<X, Y> attribute, X value) {
-        settings.add(Settings.setValue(attribute, value));
+    public <X, Y> PostSetter<T> set(Meta<X, Y> property, X value) {
+        settings.add(Settings.setValue(root.get(property), value));
         return new PostSetterImpl<>(this);
     }
 
     @Override
-    public <X, Y> PostSetter<T> set(Attribute<X, Y> attribute,
+    public <X, Y> PostSetter<T> set(Meta<X, Y> property,
             Variant<? extends Y, ?> value) {
-        settings.add(Settings.setVariant(attribute, value));
+        settings.add(Settings.setVariant(root.get(property), value));
         return new PostSetterImpl<>(this);
     }
     
@@ -41,6 +41,7 @@ class SetterImpl<T> implements Setter<T> {
         return Collections.unmodifiableList(settings);
     }
 
+    @Override
     public Root<T> getRoot() {
         return root;
     }
