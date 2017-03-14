@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.jhqc.pxsj.core.Parameterized;
 import com.jhqc.pxsj.core.query.Operation;
-import com.jhqc.pxsj.core.query.function.ParameterizedVariant;
 import com.jhqc.pxsj.core.query.variants.Variant;
 
 class PredicateImpl implements Predicate {
@@ -29,8 +29,8 @@ class PredicateImpl implements Predicate {
     public <T, U> PredicateImpl(Variant<T, U> variant, T value, Operation operation) {
         sql = new StringBuilder().append("(").append(operation.formatPrepared(variant.getExp(), 1)).append(")");
         
-        if(variant instanceof ParameterizedVariant) {
-            ParameterizedVariant<T, U> pAttribute = (ParameterizedVariant<T, U>)variant;
+        if(variant instanceof Parameterized) {
+            Parameterized pAttribute = (Parameterized)variant;
             params.addAll(pAttribute.getParams());
         }
         params.add(Parameters.newInstance(variant.getJavaType(), value));
@@ -43,8 +43,8 @@ class PredicateImpl implements Predicate {
         
         sql = new StringBuilder().append("(").append(operation.formatPrepared(variant.getExp(), values.size())).append(")");
         
-        if(variant instanceof ParameterizedVariant) {
-            ParameterizedVariant<T, U> pAttribute = (ParameterizedVariant<T, U>)variant;
+        if(variant instanceof Parameterized) {
+            Parameterized pAttribute = (Parameterized)variant;
             params.addAll(pAttribute.getParams());
         }
         params.addAll(values.stream().map(v -> Parameters.newInstance(variant.getJavaType(), v))
@@ -54,8 +54,8 @@ class PredicateImpl implements Predicate {
     public <T, U> PredicateImpl(Variant<T, U> variant, Operation operation) {
         sql = new StringBuilder().append("(").append(operation.formatPrepared(variant.getExp(), 0)).append(")");
         
-        if(variant instanceof ParameterizedVariant) {
-            ParameterizedVariant<T, U> pAttribute = (ParameterizedVariant<T, U>)variant;
+        if(variant instanceof Parameterized) {
+            Parameterized pAttribute = (Parameterized)variant;
             params.addAll(pAttribute.getParams());
         }
     }
@@ -67,12 +67,12 @@ class PredicateImpl implements Predicate {
         
         sql = new StringBuilder().append("(").append(operation.formatPlain(variant.getExp(), new String[] {value.getExp()})).append(")");
         
-        if(variant instanceof ParameterizedVariant) {
-            ParameterizedVariant<T, U> pAttribute = (ParameterizedVariant<T, U>)variant;
+        if(variant instanceof Parameterized) {
+            Parameterized pAttribute = (Parameterized)variant;
             params.addAll(pAttribute.getParams());
         }
-        if(value instanceof ParameterizedVariant) {
-            ParameterizedVariant<? extends U, ?> pValue = (ParameterizedVariant<? extends U, ?>)value;
+        if(value instanceof Parameterized) {
+            Parameterized pValue = (Parameterized)value;
             params.addAll(pValue.getParams());
         }
     } 
@@ -82,8 +82,8 @@ class PredicateImpl implements Predicate {
             values = new ArrayList<>();
         }
         
-        if(variant instanceof ParameterizedVariant) {
-            ParameterizedVariant<T, U> pAttribute = (ParameterizedVariant<T, U>)variant;
+        if(variant instanceof Parameterized) {
+            Parameterized pAttribute = (Parameterized)variant;
             params.addAll(pAttribute.getParams());
         }
         
@@ -91,8 +91,8 @@ class PredicateImpl implements Predicate {
         for(Variant<? extends U, ?> value : values) {
             exps.add(value.getExp());
             
-            if(value instanceof ParameterizedVariant) {
-                ParameterizedVariant<? extends U, ?> pValue = (ParameterizedVariant<? extends U, ?>)value;
+            if(value instanceof Parameterized) {
+                Parameterized pValue = (Parameterized)value;
                 params.addAll(pValue.getParams());
             }
         }
