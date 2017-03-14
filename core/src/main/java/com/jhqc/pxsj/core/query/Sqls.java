@@ -1,6 +1,7 @@
 package com.jhqc.pxsj.core.query;
 
 import com.jhqc.pxsj.core.meta.MetaPool;
+import com.jhqc.pxsj.core.query.root.Root;
 
 public final class Sqls {
     private Sqls() {
@@ -13,5 +14,9 @@ public final class Sqls {
 
     public static <T> Select<T> createSelect(Class<T> resultType, MetaPool pool) {
         return new SelectImpl<>(resultType, pool);
+    }
+    
+    public static <T> Setter<T> createUpdate(Root<T> root) {
+        return new SetterImpl<>(root);
     }
 }

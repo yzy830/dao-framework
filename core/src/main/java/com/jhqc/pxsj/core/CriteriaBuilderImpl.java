@@ -5,6 +5,7 @@ import java.util.Date;
 import com.jhqc.pxsj.core.meta.MetaPool;
 import com.jhqc.pxsj.core.query.Insert;
 import com.jhqc.pxsj.core.query.Select;
+import com.jhqc.pxsj.core.query.Setter;
 import com.jhqc.pxsj.core.query.Sqls;
 import com.jhqc.pxsj.core.query.function.DateAdd.Type;
 import com.jhqc.pxsj.core.query.function.DateAdd;
@@ -16,7 +17,8 @@ import com.jhqc.pxsj.core.query.root.Roots;
 import com.jhqc.pxsj.core.query.variants.DateVariant;
 import com.jhqc.pxsj.core.query.variants.Variant;
 import com.jhqc.pxsj.core.trick.Trick;
-import com.jhqc.pxsj.core.trick.Trick.TrickType;
+import com.jhqc.pxsj.core.trick.TrickType;
+import com.jhqc.pxsj.core.trick.TrickUpdate;
 import com.jhqc.pxsj.core.trick.Tricks;
 
 class CriteriaBuilderImpl implements CriteriaBuilder {
@@ -75,5 +77,20 @@ class CriteriaBuilderImpl implements CriteriaBuilder {
     @Override
     public <T> Insert<T> creatInsert(Class<T> domain) {
         return Sqls.createInsert(metaPool, domain);
+    }
+
+    @Override
+    public <T> Setter<T> createUpdate(Class<T> domainModel) {
+        return Sqls.createUpdate(this.root(domainModel));
+    }
+
+    @Override
+    public <T> TrickUpdate<T> trickUpdate(Class<T> domainModel) {
+        return Tricks.trickUpdate(this, TrickType.AND, domainModel);
+    }
+
+    @Override
+    public <T> TrickUpdate<T> trickUpdate(Class<T> domainModel, TrickType type) {
+        return Tricks.trickUpdate(this, type, domainModel);
     }
 }

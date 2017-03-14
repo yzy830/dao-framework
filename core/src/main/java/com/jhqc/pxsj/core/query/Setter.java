@@ -10,7 +10,7 @@ import com.jhqc.pxsj.core.query.variants.Variant;
  *          领域模型
  */
 public interface Setter<T> {
-    <X, Y> Setter<T> set(Attribute<X, Y> attribute, X value);
+    <X, Y> PostSetter<T> set(Attribute<X, Y> attribute, X value);
     
-    <X, Y> Setter<T> set(Attribute<X, Y> attribute, Variant<? extends Y, ?> value);
+    <X, Y> PostSetter<T> set(Attribute<X, Y> attribute, Variant<? extends Y, ?> value);
 }

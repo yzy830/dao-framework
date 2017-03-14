@@ -12,8 +12,8 @@ class UpdateImpl<T> implements Update<T> {
     
     private List<Parameter<?>> params = new ArrayList<>();
     
-    public UpdateImpl(SetterImpl<T> setter) {
-        StringBuilder builder = new StringBuilder().append("update ").append(setter.getDomainMeta().getTable())
+    public UpdateImpl(PostSetterImpl<T> setter) {
+        StringBuilder builder = new StringBuilder().append("update ").append(setter.getRoot())
                                                    .append(" set ")
                                                    .append(setter.getSettings().stream().map(Setting::getExp).collect(Collectors.joining(", ")))
                                                    .append(" where ")

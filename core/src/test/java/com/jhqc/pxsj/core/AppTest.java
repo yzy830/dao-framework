@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import com.jhqc.pxsj.core.query.Insert;
 import com.jhqc.pxsj.core.query.Query;
+import com.jhqc.pxsj.core.query.Update;
 import com.jhqc.pxsj.core.query.function.DateAdd;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
 import com.jhqc.pxsj.core.query.root.Join;
@@ -134,5 +135,18 @@ public class AppTest {
         
         System.out.println(insert.create());
         System.out.println(insert.getParams(g));
+    }
+    
+    @Test
+    public void trickUpdate() {
+        Update<Goods> update = builder.trickUpdate(Goods.class).root().eq(Goods_.goodsId, 1)
+                                                                      .lt(Goods_.createDate, builder.now())
+                                                               .done()
+                                                               .set(Goods_.name, "yang zongyuan")
+                                                               .set(Goods_.price, 123)
+                                                               .done();
+        
+        System.out.println(update.create());
+        System.out.println(update.getParams());
     }
 }
