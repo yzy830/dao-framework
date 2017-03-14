@@ -53,6 +53,10 @@ class TrickUpdateImpl<D> implements TrickUpdate<D> {
         return domain;
     }
     
+    public Root<D> getRoot() {
+        return root;
+    }
+    
     public void composite(Predicate p) {
         if(type == TrickType.AND) {
             predicate = predicate.and(p);
