@@ -1,7 +1,7 @@
 package com.jhqc.pxsj.core.trick;
 
 import java.util.List;
-import java.util.function.BooleanSupplier;
+import java.util.function.Predicate;
 
 import com.jhqc.pxsj.annotation.process.meta.Meta;
 import com.jhqc.pxsj.core.query.root.Root;
@@ -144,8 +144,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> likeIf(Meta<X, Y> property, X value,
-            BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            Predicate<X> condition) {
+        if(condition.test(value)) {
             this.like(property, value);
         }
         return this;
@@ -153,8 +153,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> likeIf(Meta<X, Y> property,
-            Variant<? extends Y, ?> value, BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            Variant<? extends Y, ?> value, Predicate<Variant<? extends Y, ?>> condition) {
+        if(condition.test(value)) {
             this.like(property, value);
         }
         
@@ -163,8 +163,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> eqIf(Meta<X, Y> property, X value,
-            BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            Predicate<X> condition) {
+        if(condition.test(value)) {
             this.eq(property, value);
         }
         return this;
@@ -172,8 +172,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> eqIf(Meta<X, Y> property,
-            Variant<? extends Y, ?> value, BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            Variant<? extends Y, ?> value, Predicate<Variant<? extends Y, ?>> condition) {
+        if(condition.test(value)) {
             this.eq(property, value);
         }
         return this;
@@ -181,8 +181,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> notEqIf(Meta<X, Y> property, X value,
-            BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            Predicate<X> condition) {
+        if(condition.test(value)) {
             this.notEq(property, value);
         }
         return this;
@@ -190,8 +190,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> notEqIf(Meta<X, Y> property,
-            Variant<? extends Y, ?> value, BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            Variant<? extends Y, ?> value, Predicate<Variant<? extends Y, ?>> condition) {
+        if(condition.test(value)) {
             this.notEq(property, value);
         }        
         return this;
@@ -199,8 +199,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> ltIf(Meta<X, Y> property, X value,
-            BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            Predicate<X> condition) {
+        if(condition.test(value)) {
             this.lt(property, value);
         }
         
@@ -209,8 +209,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> ltIf(Meta<X, Y> property,
-            Variant<? extends Y, ?> value, BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            Variant<? extends Y, ?> value, Predicate<Variant<? extends Y, ?>> condition) {
+        if(condition.test(value)) {
             this.lt(property, value);
         }
         return this;
@@ -218,8 +218,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> leIf(Meta<X, Y> property, X value,
-            BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            Predicate<X> condition) {
+        if(condition.test(value)) {
             this.le(property, value);
         }
         return this;
@@ -227,8 +227,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> leIf(Meta<X, Y> property,
-            Variant<? extends Y, ?> value, BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            Variant<? extends Y, ?> value, Predicate<Variant<? extends Y, ?>> condition) {
+        if(condition.test(value)) {
             this.le(property, value);
         }
         return this;
@@ -236,8 +236,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> gtIf(Meta<X, Y> property, X value,
-            BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            Predicate<X> condition) {
+        if(condition.test(value)) {
             this.gt(property, value);
         }
         return this;
@@ -245,8 +245,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> gtIf(Meta<X, Y> property,
-            Variant<? extends Y, ?> value, BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            Variant<? extends Y, ?> value, Predicate<Variant<? extends Y, ?>> condition) {
+        if(condition.test(value)) {
             this.gt(property, value);
         }
         return this;
@@ -254,8 +254,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> geIf(Meta<X, Y> property, X value,
-            BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            Predicate<X> condition) {
+        if(condition.test(value)) {
             this.ge(property, value);
         }
         return this;
@@ -263,8 +263,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> geIf(Meta<X, Y> property,
-            Variant<? extends Y, ?> value, BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            Variant<? extends Y, ?> value, Predicate<Variant<? extends Y, ?>> condition) {
+        if(condition.test(value)) {
             this.ge(property, value);
         }
         return this;
@@ -272,8 +272,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> inIf(Meta<X, Y> property, X[] value,
-            BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            Predicate<X[]> condition) {
+        if(condition.test(value)) {
             this.in(property, value);
         }
         return this;
@@ -281,8 +281,8 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
 
     @Override
     public <X, Y> TrickRoot<T, D> inIf(Meta<X, Y> property,
-            List<? extends Variant<? extends Y, ?>> value, BooleanSupplier condition) {
-        if(condition.getAsBoolean()) {
+            List<? extends Variant<? extends Y, ?>> value, Predicate<List<? extends Variant<? extends Y, ?>>> condition) {
+        if(condition.test(value)) {
             this.in(property, value);
         }
         return this;

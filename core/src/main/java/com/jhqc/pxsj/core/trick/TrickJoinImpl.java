@@ -1,7 +1,7 @@
 package com.jhqc.pxsj.core.trick;
 
 import java.util.List;
-import java.util.function.BooleanSupplier;
+import java.util.function.Predicate;
 
 import com.jhqc.pxsj.annotation.process.meta.Meta;
 import com.jhqc.pxsj.core.query.root.Join;
@@ -95,112 +95,113 @@ class TrickJoinImpl<T, D, J> extends TrickRootImpl<T, J> implements TrickJoin<T,
     
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> likeIf(Meta<X, Y> property, X value,
-            BooleanSupplier condition) {
+            Predicate<X> condition) {
         super.likeIf(property, value, condition);
         return this;
     }
 
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> likeIf(Meta<X, Y> property,
-            Variant<? extends Y, ?> value, BooleanSupplier condition) {
+            Variant<? extends Y, ?> value, Predicate<Variant<? extends Y, ?>> condition) {
         super.likeIf(property, value, condition);        
         return this;
     }
 
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> eqIf(Meta<X, Y> property, X value,
-            BooleanSupplier condition) {
+            Predicate<X> condition) {
         super.eqIf(property, value, condition);
         return this;
     }
 
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> eqIf(Meta<X, Y> property,
-            Variant<? extends Y, ?> value, BooleanSupplier condition) {
+            Variant<? extends Y, ?> value, Predicate<Variant<? extends Y, ?>> condition) {
         super.eqIf(property, value, condition);
         return this;
     }
 
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> notEqIf(Meta<X, Y> property, X value,
-            BooleanSupplier condition) {
+            Predicate<X> condition) {
         super.notEqIf(property, value, condition);
         return this;
     }
 
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> notEqIf(Meta<X, Y> property,
-            Variant<? extends Y, ?> value, BooleanSupplier condition) {
+            Variant<? extends Y, ?> value, Predicate<Variant<? extends Y, ?>> condition) {
         super.notEqIf(property, value, condition);      
         return this;
     }
 
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> ltIf(Meta<X, Y> property, X value,
-            BooleanSupplier condition) {
+            Predicate<X> condition) {
         super.ltIf(property, value, condition);
         return this;
     }
 
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> ltIf(Meta<X, Y> property,
-            Variant<? extends Y, ?> value, BooleanSupplier condition) {
+            Variant<? extends Y, ?> value, Predicate<Variant<? extends Y, ?>> condition) {
         super.ltIf(property, value, condition);
         return this;
     }
 
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> leIf(Meta<X, Y> property, X value,
-            BooleanSupplier condition) {
+            Predicate<X> condition) {
         super.leIf(property, value, condition);
         return this;
     }
 
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> leIf(Meta<X, Y> property,
-            Variant<? extends Y, ?> value, BooleanSupplier condition) {
+            Variant<? extends Y, ?> value, Predicate<Variant<? extends Y, ?>> condition) {
         super.leIf(property, value, condition);
         return this;
     }
 
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> gtIf(Meta<X, Y> property, X value,
-            BooleanSupplier condition) {
+            Predicate<X> condition) {
         super.gtIf(property, value, condition);
         return this;
     }
 
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> gtIf(Meta<X, Y> property,
-            Variant<? extends Y, ?> value, BooleanSupplier condition) {
+            Variant<? extends Y, ?> value, Predicate<Variant<? extends Y, ?>> condition) {
         super.gtIf(property, value, condition);
         return this;
     }
 
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> geIf(Meta<X, Y> property, X value,
-            BooleanSupplier condition) {
+            Predicate<X> condition) {
         super.geIf(property, value, condition);
         return this;
     }
 
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> geIf(Meta<X, Y> property,
-            Variant<? extends Y, ?> value, BooleanSupplier condition) {
+            Variant<? extends Y, ?> value, Predicate<Variant<? extends Y, ?>> condition) {
         super.geIf(property, value, condition);
         return this;
     }
 
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> inIf(Meta<X, Y> property, X[] value,
-            BooleanSupplier condition) {
+            Predicate<X[]> condition) {
         super.inIf(property, value, condition);
         return this;
     }
 
     @Override
     public <X,Y> TrickJoinImpl<T, D, J> inIf(Meta<X, Y> property,
-            List<? extends Variant<? extends Y, ?>> value, BooleanSupplier condition) {
+            List<? extends Variant<? extends Y, ?>> value, 
+            Predicate<List<? extends Variant<? extends Y, ?>>> condition) {
         super.inIf(property, value, condition);
         return this;
     }
