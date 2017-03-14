@@ -34,7 +34,7 @@ public class AppTest {
         Root<Goods> goods = builder.root(Goods.class);
         
         Predicate predicate = builder.alwaysTrue().and(goods.get(Goods_.goodsId).eq(1))
-                                                 .and(goods.get(Goods_.price).lt(100));
+                                                  .and(goods.get(Goods_.price).lt(100));
         
         Query<Integer> query = builder.createQuery(Integer.class).select(goods.get(Goods_.goodsId), goods.get(Goods_.name))
                                                                  .from(goods)
