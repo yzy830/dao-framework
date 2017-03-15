@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.jhqc.pxsj.core.Parameterized;
 import com.jhqc.pxsj.core.query.function.variants.ParameterizedDateVariant;
 import com.jhqc.pxsj.core.query.predicate.Parameter;
 import com.jhqc.pxsj.core.query.predicate.Parameters;
@@ -47,6 +48,9 @@ public enum DateAdd implements Function<Date> {
         }
         
         List<Parameter<?>> params = new ArrayList<>();
+        if(operator instanceof Parameterized) {
+            params.addAll(((Parameterized)operator).getParams());
+        }
         params.add(Parameters.newInstance(Integer.class, interval));
         
         return new ParameterizedDateVariant(String.format(template, operator.getExp(), type.getValue()), params);
