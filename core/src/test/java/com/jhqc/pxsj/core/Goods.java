@@ -5,6 +5,7 @@ import java.util.Date;
 import com.jhqc.pxsj.domain.annotation.Domain;
 import com.jhqc.pxsj.domain.annotation.Id;
 import com.jhqc.pxsj.domain.annotation.Join;
+import com.jhqc.pxsj.domain.annotation.Now;
 import com.jhqc.pxsj.domain.annotation.Property;
 
 @Domain(table = "t_d_goods")
@@ -16,7 +17,7 @@ public class Goods {
     private String name;
     
     private Long shopId;
-    
+
     private Date createDate;
 
     @Id
@@ -55,6 +56,7 @@ public class Goods {
         this.shopId = shopId;
     }
 
+    @Now
     public Date getCreateDate() {
         return createDate;
     }

@@ -13,9 +13,12 @@ import com.jhqc.pxsj.core.exception.InsertNonDomainModelException;
 import com.jhqc.pxsj.core.meta.MetaPool;
 import com.jhqc.pxsj.core.query.predicate.Parameter;
 import com.jhqc.pxsj.core.query.predicate.Parameters;
+import com.jhqc.pxsj.core.query.variants.Variant;
 
 public class InsertImpl<T> implements Insert<T> {
     private static final String INSERT_TEMPLATE = "insert into %s (%s) values(%s)";
+    
+    private static final Variant<?, ?> NOW = com.jhqc.pxsj.core.query.function.Now.INSTANCE.apply();
 
     private DomainMeta meta;
     
@@ -44,13 +47,17 @@ public class InsertImpl<T> implements Insert<T> {
         List<String> columns = new ArrayList<>();
         List<String> placeHolders = new ArrayList<>();
         
-        //应该始终成立
         columns.add(meta.getIdMeta().getColumnName());
         placeHolders.add("?");
         
         for(PropertyMeta pMeta : meta.getPropertyMetas().values()) {
             columns.add(pMeta.getColumnName());
-            placeHolders.add("?");
+            
+            if(pMeta.isUseNow()) {
+                placeHolders.add(NOW.getExp());
+            } else {
+                placeHolders.add("?");
+            }
         }
         
         return String.format(INSERT_TEMPLATE, meta.getTable(), 
@@ -86,8 +93,10 @@ public class InsertImpl<T> implements Insert<T> {
         params.add(Parameters.newInstance(meta.getIdMeta().getDescriptor().getPropertyType(), 
                                           getField(meta.getIdMeta().getDescriptor().getReadMethod(), obj)));
         for(PropertyMeta pMeta : meta.getPropertyMetas().values()) {
-            params.add(Parameters.newInstance(pMeta.getDescriptor().getPropertyType(), 
-                                              getField(pMeta.getDescriptor().getReadMethod(), obj)));
+            if(!pMeta.isUseNow()) {
+                params.add(Parameters.newInstance(pMeta.getDescriptor().getPropertyType(), 
+                        getField(pMeta.getDescriptor().getReadMethod(), obj)));
+            }
         }
         
         return params;

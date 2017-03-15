@@ -1,9 +1,11 @@
 package com.jhqc.pxsj.annotation.process.dynamicmeta;
 
 import java.beans.PropertyDescriptor;
+import java.util.Date;
 
 import com.jhqc.pxsj.annotation.process.util.NameUtil;
 import com.jhqc.pxsj.domain.annotation.Join;
+import com.jhqc.pxsj.domain.annotation.Now;
 import com.jhqc.pxsj.domain.annotation.Property;
 
 /**
@@ -18,16 +20,21 @@ public class PropertyMeta {
     
     private String columnName;
     
+    private boolean useNow;
+    
     public PropertyMeta(DomainMeta domainMeta, PropertyDescriptor descriptor, Property propertyAnnotation) {
         this.domainMeta = domainMeta;
         this.descriptor = descriptor;
         this.columnName = NameUtil.getPropertyColumnName(descriptor);
+        
+        useNow = (Date.class.isAssignableFrom(descriptor.getPropertyType())) && (descriptor.getReadMethod().getAnnotation(Now.class) != null);
     }
     
     public PropertyMeta(DomainMeta domainMeta, PropertyDescriptor descriptor, Join propertyAnnotation) {
         this.domainMeta = domainMeta;
         this.descriptor = descriptor;
         this.columnName = NameUtil.getJoinColumnName(descriptor);
+        useNow = false;
     }
 
     public DomainMeta getDomainMeta() {
@@ -40,5 +47,9 @@ public class PropertyMeta {
 
     public String getColumnName() {
         return columnName;
+    }
+
+    public boolean isUseNow() {
+        return useNow;
     }
 }
