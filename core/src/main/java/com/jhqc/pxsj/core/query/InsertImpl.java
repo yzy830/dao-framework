@@ -1,13 +1,18 @@
 package com.jhqc.pxsj.core.query;
 
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.jhqc.pxsj.annotation.process.dynamicmeta.DomainMeta;
 import com.jhqc.pxsj.annotation.process.dynamicmeta.PropertyMeta;
+import com.jhqc.pxsj.annotation.process.meta.Meta;
 import com.jhqc.pxsj.core.exception.AccessBeanMethodException;
 import com.jhqc.pxsj.core.exception.InsertNonDomainModelException;
 import com.jhqc.pxsj.core.meta.MetaPool;
@@ -26,7 +31,11 @@ public class InsertImpl<T> implements Insert<T> {
     
     private List<Parameter<?>> params = new ArrayList<>();
     
-    public InsertImpl(MetaPool pool, Class<?> domainModel) {
+    private Set<String> ignores;
+    
+    private List<PropertyDescriptor> descriptors = new ArrayList<>();
+    
+    public InsertImpl(MetaPool pool, Class<?> domainModel, Meta<?, ?>... ignores) {
         if((domainModel == null) || (pool == null)) {
             throw new IllegalArgumentException();
         }
@@ -35,7 +44,14 @@ public class InsertImpl<T> implements Insert<T> {
         if(meta == null) {
             throw new InsertNonDomainModelException(domainModel);
         }
-        sql = createSql(meta, domainModel, params);
+        
+        if(ignores != null) {
+            this.ignores = Arrays.stream(ignores).map(Meta::getName).collect(Collectors.toSet());
+        } else {
+            this.ignores = new HashSet<>();
+        }
+        
+        sql = createSql(meta, domainModel, params, this.ignores, this.descriptors);
     }
 
     @Override
@@ -43,20 +59,26 @@ public class InsertImpl<T> implements Insert<T> {
         return sql;
     }
     
-    private static <T> String createSql(DomainMeta meta, Class<T> clazz, List<Parameter<?>> params) {        
+    private static <T> String createSql(DomainMeta meta, Class<T> clazz, List<Parameter<?>> params, Set<String> ignores, List<PropertyDescriptor> descriptors) {        
         List<String> columns = new ArrayList<>();
         List<String> placeHolders = new ArrayList<>();
         
-        columns.add(meta.getIdMeta().getColumnName());
-        placeHolders.add("?");
+        if(!ignores.contains(meta.getIdMeta().getDescriptor().getName())) {
+            columns.add(meta.getIdMeta().getColumnName());
+            placeHolders.add("?");
+            descriptors.add(meta.getIdMeta().getDescriptor());
+        }
         
         for(PropertyMeta pMeta : meta.getPropertyMetas().values()) {
-            columns.add(pMeta.getColumnName());
-            
-            if(pMeta.isUseNow()) {
-                placeHolders.add(NOW.getExp());
-            } else {
-                placeHolders.add("?");
+            if(!ignores.contains(pMeta.getDescriptor().getName())) {
+                columns.add(pMeta.getColumnName());
+                
+                if(pMeta.isUseNow()) {
+                    placeHolders.add(NOW.getExp());
+                } else {
+                    placeHolders.add("?");
+                    descriptors.add(pMeta.getDescriptor());
+                }
             }
         }
         
@@ -90,13 +112,8 @@ public class InsertImpl<T> implements Insert<T> {
     public List<? extends Parameter<?>> getParams(T obj) {
         List<Parameter<?>> params = new ArrayList<>();
         
-        params.add(Parameters.newInstance(meta.getIdMeta().getDescriptor().getPropertyType(), 
-                                          getField(meta.getIdMeta().getDescriptor().getReadMethod(), obj)));
-        for(PropertyMeta pMeta : meta.getPropertyMetas().values()) {
-            if(!pMeta.isUseNow()) {
-                params.add(Parameters.newInstance(pMeta.getDescriptor().getPropertyType(), 
-                        getField(pMeta.getDescriptor().getReadMethod(), obj)));
-            }
+        for(PropertyDescriptor descriptor : descriptors) {
+            params.add(Parameters.newInstance(descriptor.getPropertyType(), getField(descriptor.getReadMethod(), obj)));
         }
         
         return params;

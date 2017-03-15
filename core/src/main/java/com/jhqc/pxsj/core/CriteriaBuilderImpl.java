@@ -2,6 +2,7 @@ package com.jhqc.pxsj.core;
 
 import java.util.Date;
 
+import com.jhqc.pxsj.annotation.process.meta.Meta;
 import com.jhqc.pxsj.core.meta.MetaPool;
 import com.jhqc.pxsj.core.query.Insert;
 import com.jhqc.pxsj.core.query.Select;
@@ -75,8 +76,8 @@ class CriteriaBuilderImpl implements CriteriaBuilder {
     }
 
     @Override
-    public <T> Insert<T> creatInsert(Class<T> domain) {
-        return Sqls.createInsert(metaPool, domain);
+    public <T> Insert<T> creatInsert(Class<T> domain, Meta<?, ?>... ignores) {
+        return Sqls.createInsert(metaPool, domain, ignores);
     }
 
     @Override

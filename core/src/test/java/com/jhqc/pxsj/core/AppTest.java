@@ -15,7 +15,6 @@ import com.jhqc.pxsj.core.query.function.DateAdd.Type;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
 import com.jhqc.pxsj.core.query.root.Join;
 import com.jhqc.pxsj.core.query.root.Root;
-import com.jhqc.pxsj.domain.annotation.Now;
 import com.jhqc.pxsj.domain.annotation.Source;
 import com.jhqc.pxsj.domain.annotation.SourceProperty;
 
@@ -128,7 +127,7 @@ public class AppTest {
     
     @Test
     public void testInsert() {        
-        Insert<Goods> insert = builder.creatInsert(Goods.class);
+        Insert<Goods> insert = builder.creatInsert(Goods.class, Goods_.shopId);
         
         Goods g = new Goods();
         g.setCreateDate(null);

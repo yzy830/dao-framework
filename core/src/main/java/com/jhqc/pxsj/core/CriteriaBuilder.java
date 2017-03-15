@@ -2,6 +2,7 @@ package com.jhqc.pxsj.core;
 
 import java.util.Date;
 
+import com.jhqc.pxsj.annotation.process.meta.Meta;
 import com.jhqc.pxsj.core.query.Insert;
 import com.jhqc.pxsj.core.query.Select;
 import com.jhqc.pxsj.core.query.Setter;
@@ -25,7 +26,7 @@ public interface CriteriaBuilder {
     
     <T> Select<T> createQuery(Class<T> result);
     
-    <T> Insert<T> creatInsert(Class<T> domainModel);
+    <T> Insert<T> creatInsert(Class<T> domainModel, Meta<?, ?>... ignores);
     
     <T> Setter<T> createUpdate(Class<T> domainModel);
     

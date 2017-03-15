@@ -1,5 +1,6 @@
 package com.jhqc.pxsj.core.query;
 
+import com.jhqc.pxsj.annotation.process.meta.Meta;
 import com.jhqc.pxsj.core.meta.MetaPool;
 import com.jhqc.pxsj.core.query.root.Root;
 
@@ -8,8 +9,8 @@ public final class Sqls {
         throw new AssertionError();
     }
     
-    public static <T> Insert<T> createInsert(MetaPool pool, Class<T> domainModel) {
-        return new InsertImpl<>(pool, domainModel);
+    public static <T> Insert<T> createInsert(MetaPool pool, Class<T> domainModel, Meta<?, ?>... ignores) {
+        return new InsertImpl<>(pool, domainModel, ignores);
     }
 
     public static <T> Select<T> createSelect(Class<T> resultType, MetaPool pool) {
