@@ -2,7 +2,7 @@ package com.jhqc.pxsj.core.query.variants;
 
 import com.jhqc.pxsj.core.query.Operation;
 
-abstract class NumberVariant<T extends Number, U> extends AbstractVariant<T, U> {
+public abstract class NumberVariant<T extends Number, U> extends AbstractVariant<T, U> {
 
     public NumberVariant(Class<T> javaType, String exp) {
         super(javaType, exp);

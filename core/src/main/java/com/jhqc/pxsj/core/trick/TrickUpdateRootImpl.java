@@ -278,4 +278,16 @@ class TrickUpdateRootImpl<D> implements TrickUpdateRoot<D> {
         return this;
     }
 
+    @Override
+    public <X, Y> TrickUpdateRoot<D> isNull(Meta<X, Y> property) {
+        trickUpdate.composite(root.get(property).isNull());
+        return this;
+    }
+
+    @Override
+    public <X, Y> TrickUpdateRoot<D> notNull(Meta<X, Y> property) {
+        trickUpdate.composite(root.get(property).notNull());
+        return this;
+    }
+
 }

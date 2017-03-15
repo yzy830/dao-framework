@@ -78,4 +78,8 @@ public interface TrickUpdateRoot<D> {
     <X,Y> TrickUpdateRoot<D> in(Meta<X,Y> property, List<? extends Variant<? extends Y, ?>> value);
     
     <X,Y> TrickUpdateRoot<D> inIf(Meta<X,Y> property, List<? extends Variant<? extends Y, ?>> value, Predicate<List<? extends Variant<? extends Y, ?>>> condition);
+    
+    <X, Y> TrickUpdateRoot<D> isNull(Meta<X,Y> property);
+    
+    <X, Y> TrickUpdateRoot<D> notNull(Meta<X,Y> property);
 }

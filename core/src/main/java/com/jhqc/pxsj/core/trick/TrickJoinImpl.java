@@ -205,4 +205,16 @@ class TrickJoinImpl<T, D, J> extends TrickRootImpl<T, J> implements TrickJoin<T,
         super.inIf(property, value, condition);
         return this;
     }
+    
+    @Override
+    public <X,Y> TrickJoin<T, D, J> isNull(Meta<X,Y> property) {
+        super.isNull(property);
+        return this;
+    }
+    
+    @Override
+    public <X,Y> TrickJoin<T, D, J> notNull(Meta<X,Y> property) {
+        super.notNull(property);
+        return this;
+    }
 }

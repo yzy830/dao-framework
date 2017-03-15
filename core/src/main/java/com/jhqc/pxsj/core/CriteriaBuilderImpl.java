@@ -9,13 +9,17 @@ import com.jhqc.pxsj.core.query.Select;
 import com.jhqc.pxsj.core.query.Setter;
 import com.jhqc.pxsj.core.query.Sqls;
 import com.jhqc.pxsj.core.query.function.DateAdd.Type;
+import com.jhqc.pxsj.core.query.function.Count;
 import com.jhqc.pxsj.core.query.function.DateAdd;
 import com.jhqc.pxsj.core.query.function.Now;
+import com.jhqc.pxsj.core.query.function.Sum;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
 import com.jhqc.pxsj.core.query.predicate.Predicates;
 import com.jhqc.pxsj.core.query.root.Root;
 import com.jhqc.pxsj.core.query.root.Roots;
 import com.jhqc.pxsj.core.query.variants.DateVariant;
+import com.jhqc.pxsj.core.query.variants.LongVariant;
+import com.jhqc.pxsj.core.query.variants.NumberVariant;
 import com.jhqc.pxsj.core.query.variants.Variant;
 import com.jhqc.pxsj.core.trick.Trick;
 import com.jhqc.pxsj.core.trick.TrickType;
@@ -93,5 +97,20 @@ class CriteriaBuilderImpl implements CriteriaBuilder {
     @Override
     public <T> TrickUpdate<T> trickUpdate(Class<T> domainModel, TrickType type) {
         return Tricks.trickUpdate(this, type, domainModel);
+    }
+
+    @Override
+    public LongVariant count() {
+        return Count.INSTANCE.apply();
+    }
+
+    @Override
+    public LongVariant count(Variant<?, ?> variant) {
+        return Count.INSTANCE.apply(variant);
+    }
+
+    @Override
+    public NumberVariant<? extends Number, Number> sum(Variant<? extends Number, ?> variant) {
+        return Sum.INSTANCE.apply(variant);
     }
 }

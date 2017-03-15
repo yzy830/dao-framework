@@ -35,7 +35,7 @@ public enum DateAdd implements Function<Date> {
         }
     }
     
-    private static final String template = "DATE_ADD(%s,? expr %s)";
+    private static final String template = "DATE_ADD(%s, interval ? %s)";
 
     @Override
     public Class<Date> getResultType() {

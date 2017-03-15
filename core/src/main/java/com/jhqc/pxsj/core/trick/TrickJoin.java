@@ -70,4 +70,8 @@ public interface TrickJoin<T, D, J> extends TrickRoot<T, J>  {
     <X,Y> TrickJoin<T, D, J> in(Meta<X,Y> property, List<? extends Variant<? extends Y, ?>> value);
     
     <X,Y> TrickJoin<T, D, J> inIf(Meta<X,Y> property, List<? extends Variant<? extends Y, ?>> value, Predicate<List<? extends Variant<? extends Y, ?>>> condition);
+    
+    <X,Y> TrickJoin<T, D, J> isNull(Meta<X,Y> property);
+    
+    <X,Y> TrickJoin<T, D, J> notNull(Meta<X,Y> property);
 }

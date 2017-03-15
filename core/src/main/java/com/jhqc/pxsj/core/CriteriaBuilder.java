@@ -10,6 +10,8 @@ import com.jhqc.pxsj.core.query.function.DateAdd;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
 import com.jhqc.pxsj.core.query.root.Root;
 import com.jhqc.pxsj.core.query.variants.DateVariant;
+import com.jhqc.pxsj.core.query.variants.LongVariant;
+import com.jhqc.pxsj.core.query.variants.NumberVariant;
 import com.jhqc.pxsj.core.query.variants.Variant;
 import com.jhqc.pxsj.core.trick.Trick;
 import com.jhqc.pxsj.core.trick.TrickType;
@@ -41,4 +43,10 @@ public interface CriteriaBuilder {
     DateVariant now();
     
     DateVariant dateAdd(Variant<? extends Date, ?> date, int interval, DateAdd.Type type);
+    
+    LongVariant count();
+    
+    LongVariant count(Variant<?, ?> variant);
+    
+    NumberVariant<? extends Number, Number> sum(Variant<? extends Number, ?> variant);
 }
