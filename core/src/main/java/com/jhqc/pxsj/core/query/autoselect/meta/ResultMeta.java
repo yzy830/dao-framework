@@ -9,6 +9,7 @@ import java.util.Map;
 
 import com.jhqc.pxsj.annotation.process.util.ReflectionUtil;
 import com.jhqc.pxsj.core.query.autoselect.Util;
+import com.jhqc.pxsj.domain.annotation.Ignored;
 import com.jhqc.pxsj.domain.annotation.Source;
 import com.jhqc.pxsj.domain.annotation.SourceProperty;
 import com.jhqc.pxsj.domain.annotation.exception.InvalidResultClassException;
@@ -37,6 +38,10 @@ public class ResultMeta {
         for(PropertyDescriptor descriptor : ReflectionUtil.getPropertyDescriptors(result)) {
             ResultPropertyMeta propertyMeta = generatePropertyMeta(descriptor, mainSource);
             
+            if(propertyMeta == null) {
+                continue;
+            }
+            
             if(metaMap.containsKey(propertyMeta.getSource())) {
                 metaMap.get(propertyMeta.getSource()).add(propertyMeta);
             } else {
@@ -48,6 +53,10 @@ public class ResultMeta {
     }
     
     private ResultPropertyMeta generatePropertyMeta(PropertyDescriptor descriptor, Source mainSource) {
+        if(descriptor.getReadMethod().getAnnotation(Ignored.class) != null) {
+            return null;
+        }
+        
         Source subSource = descriptor.getReadMethod().getAnnotation(Source.class);
         if(subSource == null) {
             subSource = mainSource;

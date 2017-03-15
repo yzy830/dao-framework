@@ -12,9 +12,11 @@ import com.jhqc.pxsj.core.CriteriaBuilder;
 import com.jhqc.pxsj.core.exception.AbsentRootAliasException;
 import com.jhqc.pxsj.core.exception.DuplicatedAliasException;
 import com.jhqc.pxsj.core.query.Query;
+import com.jhqc.pxsj.core.query.Query.OrderType;
 import com.jhqc.pxsj.core.query.predicate.Predicate;
 import com.jhqc.pxsj.core.query.root.Root;
 import com.jhqc.pxsj.core.query.variants.SelectingVariant;
+import com.jhqc.pxsj.core.query.variants.Variant;
 
 class TrickImpl<T> implements Trick<T> {
     
@@ -31,6 +33,48 @@ class TrickImpl<T> implements Trick<T> {
     private Root<?> root;
     
     private Predicate predicate;
+    
+    private static class Order {
+        private Variant<?,?> variant;
+        
+        private OrderType orderType;
+        
+        public Order(Variant<?,?> variant, OrderType orderType) {
+            this.variant = variant;
+            this.orderType = orderType;
+        }
+
+        public Variant<?, ?> getVariant() {
+            return variant;
+        }
+
+        public OrderType getOrderType() {
+            return orderType;
+        }
+    }
+    
+    private List<Order> orders = new ArrayList<>();
+    
+    private static class Page {
+        private int offset;
+        
+        private int count;
+        
+        public Page(int offset, int count) {
+            this.offset = offset;
+            this.count = count;
+        }
+
+        public int getOffset() {
+            return offset;
+        }
+
+        public int getCount() {
+            return count;
+        }
+    }
+    
+    private Page page;
     
     public TrickImpl(CriteriaBuilder builder, TrickType type, Class<T> resultType) {
         this.builder = builder;
@@ -108,7 +152,29 @@ class TrickImpl<T> implements Trick<T> {
         attributes.addAll(attrs);
     }
     
-    public Query<T> selectDone(boolean autoSelect) {
+    void orderBy(Variant<?, ?> variant, OrderType orderType) {
+        orders.add(new Order(variant, orderType));
+    }
+    
+    void limit(int offset, int count) {
+        this.page = new Page(offset, count);
+    }
+    
+    Query<T> selectDone(boolean autoSelect) {
+        Query<T> query = baseSelect(autoSelect);
+        
+        for(Order order : orders) {
+            query.orderBy(order.getVariant(), order.getOrderType());
+        }
+        
+        if(page != null) {
+            query.setPage(page.getOffset(), page.getCount());
+        }
+        
+        return query;
+    }
+    
+    private Query<T> baseSelect(boolean autoSelect) {
         if(autoSelect) {
             if(attributes.isEmpty()) {
                 return builder.createQuery(resultType).autoSelect().from(root).where(predicate);

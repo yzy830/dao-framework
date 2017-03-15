@@ -138,6 +138,7 @@ class TrickRootImpl<T, D> implements TrickRoot<T, D> {
         return this;
     }
 
+    @Override
     public Root<D> getRoot() {
         return root;
     }

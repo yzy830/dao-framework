@@ -2,6 +2,7 @@ package com.jhqc.pxsj.core.trick;
 
 import com.jhqc.pxsj.annotation.process.meta.Meta;
 import com.jhqc.pxsj.core.query.Query;
+import com.jhqc.pxsj.core.query.Query.OrderType;
 
 public class PostTrickSelectImpl<T> implements PostTrickSelect<T> {
     private TrickImpl<T> trick;
@@ -22,6 +23,31 @@ public class PostTrickSelectImpl<T> implements PostTrickSelect<T> {
     @Override
     public Query<T> done() {
         return trick.selectDone(autoSelect);
+    }
+
+    @Override
+    public PostTrickSelect<T> ascOrderBy(String alias, Meta<?, ?> meta) {
+        trick.orderBy(trick.getRoot(alias).getRoot().get(meta), OrderType.ASC);
+        return this;
+    }
+
+    @Override
+    public PostTrickSelect<T> descOrderBy(String alias, Meta<?, ?> meta) {
+        trick.orderBy(trick.getRoot(alias).getRoot().get(meta), OrderType.DESC);
+        return this;
+    }
+
+    @Override
+    public PostTrickSelect<T> limit(int offset, int count) {
+        trick.limit(offset, count);
+        return this;
+    }
+
+    @Override
+    public PostTrickSelect<T> orderBy(String alias, Meta<?, ?> meta,
+            OrderType orderType) {
+        trick.orderBy(trick.getRoot(alias).getRoot().get(meta), orderType);
+        return this;
     }
 
 }

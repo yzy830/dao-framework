@@ -76,7 +76,10 @@ class SelectImpl<T> implements Select<T> {
         builder.append(selectVariants(variants));
         
         if(selector != null) {
-            builder.append(", ").append(selector.select(root));
+            if(!variants.isEmpty()) {
+                builder.append(", ");
+            }
+            builder.append(selector.select(root));
         }
         
         return builder.toString();
@@ -93,7 +96,10 @@ class SelectImpl<T> implements Select<T> {
         builder.append(selectVariants(variants));
         
         if(selector != null) {
-            builder.append(", ").append(selector.getTemplate().getTemplate());
+            if(!variants.isEmpty()) {
+                builder.append(", ");
+            }
+            builder.append(selector.getTemplate().getTemplate());
         }
         
         return builder.toString();

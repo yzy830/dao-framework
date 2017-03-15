@@ -26,25 +26,30 @@ public final class Util {
     }
     
     public static ClauseTemplate constructSelectFromDomainMeta(DomainMeta meta) {
-        final String ROOT_PLACE_HOLDER = "#{root}";
+        final String ROOT_PLACE_HOLDER = "#root#";
         
         StringBuilder builder = new StringBuilder();
         
         processId(meta.getIdMeta(), ROOT_PLACE_HOLDER, builder);
         
-        for(PropertyMeta propertyMeta : meta.getPropertyMetas().values()) {
-            processPropertyMeta(propertyMeta, ROOT_PLACE_HOLDER, builder);
+        Iterator<PropertyMeta> iter = meta.getPropertyMetas().values().iterator();
+        while(iter.hasNext()) {
+            if(builder.length() > 0) {
+                builder.append(", ");
+            }
+            
+            processPropertyMeta(iter.next(), ROOT_PLACE_HOLDER, builder);
         }
         
         return Templates.rootOnly(builder.toString(), ROOT_PLACE_HOLDER);
     }
     
     private static void processId(IdMeta meta, String rootAlias, StringBuilder builder) {
-        builder.append(rootAlias).append(meta.getColumnName()).append(" as ").append(meta.getDescriptor().getName()).append(" ");
+        builder.append(rootAlias).append(".").append(meta.getColumnName()).append(" as ").append(meta.getDescriptor().getName());
     }
     
     private static void processPropertyMeta(PropertyMeta meta, String rootAlias, StringBuilder builder) {
-        builder.append(rootAlias).append(meta.getColumnName()).append(" as ").append(meta.getDescriptor().getName()).append(" ");
+        builder.append(rootAlias).append(".").append(meta.getColumnName()).append(" as ").append(meta.getDescriptor().getName());
     }
     
     public static ClauseTemplate constructSelectFromResultMeta(ResultMeta meta, MetaPool pool) {

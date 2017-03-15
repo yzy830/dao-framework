@@ -7,7 +7,7 @@ import java.beans.PropertyDescriptor;
 import java.util.Map;
 
 public class ${className} {
-    public static final Class<?> domain = ${domainFullQualifiedName}.class;
+    private static final Class<?> domain = ${domainFullQualifiedName}.class;
 
     private static final Map<String, PropertyDescriptor> descriptors = ReflectionUtil.getPropertyDescriptorMap(domain); 
     <#list infos as info>

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import com.jhqc.pxsj.annotation.process.meta.Meta;
+import com.jhqc.pxsj.core.query.root.Root;
 import com.jhqc.pxsj.core.query.variants.Variant;
 
 public interface TrickRoot<T, D> {
@@ -14,6 +15,8 @@ public interface TrickRoot<T, D> {
     TrickRoot<T, ?> from(String alias);
     
     TrickSelect<T> done();
+    
+    Root<D> getRoot();
     
     <X,Y> TrickRoot<T, D> like(Meta<X,Y> property, X value);
     
