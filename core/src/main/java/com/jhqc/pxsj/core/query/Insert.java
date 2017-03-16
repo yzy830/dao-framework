@@ -14,4 +14,8 @@ public interface Insert<T> extends Sql {
     List<? extends Parameter<?>> getParams(T obj);
     
     void saveId(T obj, Object id);
+    
+    Class<?> getIdType();
+    
+    Class<?> getDomainType();
 }

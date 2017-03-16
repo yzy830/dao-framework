@@ -118,4 +118,14 @@ public class InsertImpl<T> implements Insert<T> {
         
         return params;
     }
+
+    @Override
+    public Class<?> getIdType() {
+        return meta.getIdMeta().getDescriptor().getPropertyType();
+    }
+
+    @Override
+    public Class<?> getDomainType() {
+        return meta.getDomainModel();
+    }
 }

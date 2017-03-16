@@ -18,6 +18,7 @@
     <module>annotation-process</module>
     <module>core</module>
     <module>test</module>
+    <module>spring-integration</module>
   </modules>
   
   <dependencies>
