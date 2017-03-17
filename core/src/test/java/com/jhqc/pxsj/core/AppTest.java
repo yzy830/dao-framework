@@ -146,7 +146,7 @@ public class AppTest {
                                                                .done()
                                                                .set(Goods_.name, "yang zongyuan")
                                                                .set(Goods_.price, 123)
-                                                               .<Date, Date>set(Goods_.createDate, (r, p) -> builder.dateAdd(r.get(p), 2, Type.DAY))
+                                                               .setEx(Goods_.createDate, (r, p) -> builder.dateAdd(r.get(p), 2, Type.DAY))
                                                                .done();
         
         System.out.println(update.create());

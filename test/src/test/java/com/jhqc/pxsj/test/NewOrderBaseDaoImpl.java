@@ -267,7 +267,7 @@ public class NewOrderBaseDaoImpl extends BaseDao implements OrderBaseDao {
                                           .root().eq(OrderBase_.orderNo, orderNo).notEq(OrderBase_.maintainStatus, "1")
                                           .done()
                                           .set(OrderBase_.maintainStatus, "1")
-                                          .<Date, Date>set(OrderBase_.maintainDate, (r, p)->builder.dateAdd(r.get(p), maintainDays, type))
+                                          .setEx(OrderBase_.maintainDate, (r, p)->builder.dateAdd(r.get(p), maintainDays, type))
                                           .done();
         return super.update(update);
     }

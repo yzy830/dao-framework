@@ -24,7 +24,7 @@ class TrickSetImpl<D> implements TrickSet<D> {
     }
 
     @Override
-    public <X, Y> PostTrickSet<D> set(Meta<X, Y> property,
+    public <X, Y> PostTrickSet<D> setEx(Meta<X, Y> property,
             VariantGenerator<X, Y> g) {
         trickUpdate.set(property, g.generate(trickUpdate.getRoot(), property));
         return new PostTrickSetImpl<>(trickUpdate);
